@@ -1,0 +1,34 @@
+# 主-被动数据复制关系的多个集群设置
+multiClusterServersConfig:
+  idleConnectionTimeout: 10000
+  connectTimeout: 10000
+  timeout: 3000
+  retryAttempts: 3
+  retryInterval: 1500
+  failedSlaveReconnectionInterval: 3000
+  failedSlaveCheckInterval: 60000
+  password: null
+  subscriptionsPerConnection: 5
+  clientName: null
+  loadBalancer: !<org.redisson.connection.balancer.RoundRobinLoadBalancer> {}
+  subscriptionConnectionMinimumIdleSize: 1
+  subscriptionConnectionPoolSize: 50
+  slaveConnectionMinimumIdleSize: 24
+  slaveConnectionPoolSize: 64
+  masterConnectionMinimumIdleSize: 24
+  masterConnectionPoolSize: 64
+  readMode: "SLAVE"
+  datastoreMode: "ACTIVE_PASSIVE"
+  subscriptionMode: "SLAVE"
+  addresses:
+    - "redis://cluster1:7004"
+    - "redis://cluster2:7001"
+    - "redis://cluster3:7000"
+  scanInterval: 2000
+  pingConnectionInterval: 30000
+  keepAlive: false
+  tcpNoDelay: true
+threads: 16
+nettyThreads: 32
+codec: !<org.redisson.codec.Kryo5Codec> {}
+transportMode: "NIO"

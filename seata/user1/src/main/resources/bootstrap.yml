@@ -1,0 +1,37 @@
+server:
+ port: 7001
+
+spring:
+  cloud:
+    nacos:
+      server-addr: ${nacos.server}
+      discovery:
+        group: ${nacos.discovery.group}
+      config:
+        group: ${nacos.config.group}
+
+seata:
+  enabled: true
+  data-source-proxy-mode: AT
+  # seata-spring-boot-starter的数据源自动代理
+  enable-auto-data-source-proxy: true
+  # Seata 事务组编号，用于 TC 集群名
+  tx-service-group: seata-tx-group
+  config:
+    type: nacos
+    nacos:
+      server-addr: ${nacos.server}
+      group: ${nacos.seata.group}
+      namespace: ${nacos.seata.namespace}
+      username: ${nacos.username}
+      password: ${nacos.password}
+      data-id: seata-server.properties
+  registry:
+    type: nacos
+    nacos:
+      server-addr: ${nacos.server}
+      group: ${nacos.seata.group}
+      namespace: ${nacos.seata.namespace}
+      username: ${nacos.username}
+      password: ${nacos.password}
+      cluster: default

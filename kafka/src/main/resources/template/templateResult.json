@@ -1,0 +1,26 @@
+{
+  "templateId": "001",
+  "totalNumber": "102",
+  "statistics": [
+    {
+      "questionId": "1",
+      "question": "今天几号",
+      "answers": [
+        {"label": "A", "value": 10},
+        {"label": "B", "value": 50},
+        {"label": "C", "value": 12},
+        {"label": "D", "value": 17}
+      ]
+    },
+    {
+      "questionId": "2",
+      "question": "你喜爱的颜色",
+      "answers": [
+        {"label": "A", "value": 12},
+        {"label": "B", "value": 52},
+        {"label": "C", "value": 17},
+        {"label": "D", "value": 17}
+      ]
+    }
+  ]
+}

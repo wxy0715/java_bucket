@@ -1,0 +1,74 @@
+server:
+ port: 7002
+
+mybatis-plus:
+  # 启动时是否检查 MyBatis XML 文件的存在，默认不检查
+  checkConfigLocation: false
+  global-config:
+    db-config:
+      # 主键类型
+      # AUTO 自增 NONE 空 INPUT 用户输入 ASSIGN_ID 雪花 ASSIGN_UUID 唯一 UUID
+      idType: ASSIGN_ID
+      logic-delete-field: available # 全局逻辑删除的实体字段名(since 3.3.0,配置后可以忽略不配置步骤2)
+      logic-delete-value: 'NO'
+      logic-not-delete-value: 'YES'
+      insertStrategy: NOT_NULL
+      updateStrategy: NOT_NULL
+      where-strategy: NOT_NULL
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    default-enum-type-handler: org.apache.ibatis.type.EnumOrdinalTypeHandler
+
+spring:
+  servlet:
+    multipart:
+      # 整个请求大小限制
+      max-request-size: 20MB
+      # 上传单个文件大小限制
+      max-file-size: 10MB
+  mvc:
+    format:
+      date-time: yyyy-MM-dd HH:mm:ss
+  #jackson配置
+  jackson:
+    # 日期格式化
+    date-format: yyyy-MM-dd HH:mm:ss
+    serialization:
+      # 格式化输出
+      INDENT_OUTPUT: false
+      # 忽略无法转换的对象
+      fail_on_empty_beans: false
+    deserialization:
+      # 允许对象忽略json中不存在的属性
+      fail_on_unknown_properties: false
+  name: shanghai
+  datasource:
+    dynamic:
+      primary: master #设置默认的数据源或者数据源组,默认值即为master
+      strict: false #严格匹配数据源,默认false. true未匹配到指定数据源时抛异常,false使用默认数据源
+      datasource:
+        master:
+          username: @mysql.master.username@
+          password: @mysql.master.password@
+          url: jdbc:mysql://@mysql.master.ip@:@mysql.master.port@/shardingjdbc1?characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
+          driver-class-name: @mysql.master.driver-class-name@
+        slave1:
+          username: @mysql.master.username@
+          password: @mysql.master.password@
+          url: jdbc:mysql://@mysql.master.ip@:@mysql.master.port@/shardingjdbc2?characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
+          driver-class-name: @mysql.master.driver-class-name@
+        slave2:
+          username: @mysql.master.username@
+          password: @mysql.master.password@
+          url: jdbc:mysql://@mysql.master.ip@:@mysql.master.port@/shardingjdbc3?characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
+          driver-class-name: @mysql.master.driver-class-name@
+    hikari:
+      connection-timeout: 60000
+      validation-timeout: 3000
+      idle-timeout: 60000 # 此属性控制允许连接在池中保持空闲状态的最长时间
+      login-timeout: 5
+      max-lifetime: 60000
+      maximum-pool-size: 10
+      minimum-idle: 10
+      read-only: false
+      connection-test-query: select 1

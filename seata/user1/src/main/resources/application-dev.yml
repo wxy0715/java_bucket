@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    dynamic:
+      primary: master #设置默认的数据源或者数据源组,默认值即为master
+      strict: false #严格匹配数据源,默认false. true未匹配到指定数据源时抛异常,false使用默认数据源
+      datasource:
+        master:
+          username: @mysql.master.username@
+          password: @mysql.master.password@
+          url: jdbc:mysql://@mysql.master.ip@:@mysql.master.port@/seata-test1?characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
+          driver-class-name: @mysql.master.driver-class-name@
+    hikari:
+      connection-timeout: 60000
+      validation-timeout: 3000
+      idle-timeout: 60000 # 此属性控制允许连接在池中保持空闲状态的最长时间
+      login-timeout: 5
+      max-lifetime: 60000
+      maximum-pool-size: 10
+      minimum-idle: 10
+      read-only: false
+      connection-test-query: select 1

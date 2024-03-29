@@ -1,0 +1,8 @@
+bin/kafka-console-producer.sh --broker-list 49.232.142.65:9092 --topic test-stream-in
+bin/kafka-console-consumer.sh --bootstrap-server 49.232.142.65:9092 \
+ --topic test-stream-out \
+ --property print.key=true \
+ --property print.value=true \
+ --property key.deserializer=org.apache.kafka.common.serialization.StringDeserializer \
+ --property value.deserializer=org.apache.kafka.common.serialization.LongDeserializer \
+ --from-beginning

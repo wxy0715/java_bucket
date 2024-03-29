@@ -1,0 +1,48 @@
+######################################################################################################
+# 
+# If you want to configure governance, authorization and proxy properties, please refer to this file.
+# 
+######################################################################################################
+
+#governance:
+#  name: governance_ds
+#  registryCenter:
+#    type: ZooKeeper
+#    serverLists: localhost:2181
+#    props:
+#      retryIntervalMilliseconds: 500
+#      timeToLiveSeconds: 60
+#      maxRetries: 3
+#      operationTimeoutMilliseconds: 500
+#  overwrite: false
+
+#scaling:
+#  blockQueueSize: 10000
+#  workerThread: 40
+
+rules:
+ - !AUTHORITY
+   users:
+     - wxy@%:wxy
+     - wxy1@%:wxy1
+   provider:
+     type: NATIVE
+
+props:
+ max-connections-size-per-query: 1
+ executor-size: 16  # Infinite by default.
+ proxy-frontend-flush-threshold: 128  # The default value is 128.
+   # LOCAL: Proxy will run with LOCAL transaction.
+   # XA: Proxy will run with XA transaction.
+   # BASE: Proxy will run with B.A.S.E transaction.
+ proxy-transaction-type: LOCAL
+ xa-transaction-manager-type: Atomikos
+ proxy-opentracing-enabled: false
+ proxy-hint-enabled: false
+ sql-show: false
+ check-table-metadata-enabled: false
+ lock-wait-timeout-milliseconds: 50000 # The maximum time to wait for a lock
+   # Proxy backend query fetch size. A larger value may increase the memory usage of ShardingSphere Proxy.
+   # The default value is -1, which means set the minimum value for different JDBC drivers.
+ proxy-backend-query-fetch-size: -1
+ show-process-list-enabled: false

@@ -1,0 +1,21 @@
+[{
+  "questionId": "1",
+  "question": "今天几号",
+  "answer": "",
+  "options": [
+    {"label": "1号", "value": "A"},
+    {"label": "2号", "value": "B"},
+    {"label": "3号", "value": "C"},
+    {"label": "4号", "value": "D"}
+  ]},
+  {
+    "questionId": "2",
+    "question": "你喜爱的颜色",
+    "answer": "",
+    "options": [
+      {"label": "红色", "value": "A"},
+      {"label": "黄色", "value": "B"},
+      {"label": "绿色", "value": "C"},
+      {"label": "紫色", "value": "D"}
+    ]}
+]

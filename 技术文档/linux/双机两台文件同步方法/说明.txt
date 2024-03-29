@@ -1,0 +1,21 @@
+以下两台都要同时执行
+1、保证rsync服务正确安装,如未安装则执行yum进行安装
+yum  -y install rsync
+2、把附件文件（除rsync.sh外）传输到两服务器/etc/下，并执行：
+chmod  600  /etc/rsyncdpwd
+chmod  600  /etc/secrets
+3、把文件rsync.sh传到/opt/lsblj/server/bin目录下，编辑起脚本修改目标地址，其它不动，保存后执行：
+chmod 755 /opt/lsblj/server/bin/rsync.sh
+4、执行启动服务
+/usr/bin/rsync --daemon --config=/etc/rsyncd.conf
+5、在crontab里创建任务:
+* * * * *     /opt/lsblj/server/bin/rsync.sh
+6、添加到自启动
+/usr/bin/rsync --daemon --config=/etc/rsyncd.conf
+注：定时示例
+* * * * * /home/rsync.sh                 每分钟执行一次同步脚本；
+0 * * * * /home/rsync.sh                 每小时执行一次同步脚本；
+0 0 * * * /home/rsync.sh                 每天零点执行一次同步脚本； 
+0 9,18 * * * /homke/rsync.sh            每天的9AM和6PM执行一次同步脚本； 
+
+停止服务：killall -9 rsync

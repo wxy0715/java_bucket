@@ -1,0 +1,20 @@
+kafka server.properties:
+	listeners=PLAINTEXT://192.168.220.128:9092,SSL://:8989
+	advertised.listeners=PLAINTEXT://192.168.220.128:9092,SSL://127.0.0.1:8989
+    ssl.keystore.location=/opt/cert/server.keystore.jks
+    ssl.keystore.password=wxykafka
+    ssl.key.password=wxykafka
+    ssl.truststore.location=/opt/cert/server.truststore.jks
+    ssl.truststore.password=wxykafka
+
+
+// 测试SSL是否成功
+openssl s_client -debug -connect 127.0.0.1:8989 -tls1
+
+
+
+客户端配置：
+security.protocol=SSL
+ssl.endpoint.identification.algorithm=
+ssl.truststore.location=/opt/cert/client.truststore.jks
+ssl.truststore.password=wxykafka

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxy.seata.mapper.UserMapper">
+
+    <select id="myCount" resultType="java.lang.String">
+        <if test='_databaseId=="mysql"'>
+            select #{_databaseId} from user
+        </if>
+        <if test='_databaseId=="dm"'>
+            select #{_databaseId} from "USER"
+        </if>
+    </select>
+
+</mapper>

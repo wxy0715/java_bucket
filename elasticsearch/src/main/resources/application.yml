@@ -1,0 +1,42 @@
+server:
+  port: 9401
+
+spring:
+  application:
+    name: elasticsearch
+
+--- # elasticsearch 功能配置
+# 文档地址: https://www.easy-es.cn/
+# 更改包名需要去 EasyEsConfiguration 修改包扫描(后续版本支持配置文件读取)
+easy-es:
+  enable: true # 是否开启EE自动配置 默认开启,可缺省
+  schema: http # 默认为http 可缺省
+  banner: true # 默认为true 打印banner 若您不期望打印banner,可配置为false
+  address : @es.server@ # es连接地址+端口 格式必须为ip:port,如果是集群则可用逗号隔开
+  # 注意ES建议使用账号认证 不使用会报警告日志
+  #username:   #如果无账号密码则可不配置此行
+  #password:  #如果无账号密码则可不配置此行
+  keep-alive-millis: 18000 # 心跳策略时间 单位:ms
+  connectTimeout: 5000  # 连接超时时间 单位:ms
+  socketTimeout: 600000  # 通信超时时间 单位:ms
+  request-timeout: 5000 # 请求超时时间 单位:ms
+  connectionRequestTimeout: 5000  # 连接请求超时时间 单位:ms
+  maxConnTotal: 100  # 最大连接数 单位:个
+  maxConnPerRoute: 100  # 最大连接路由数 单位:个
+  global-config:
+    process-index-mode: smoothly #索引处理模式,smoothly:平滑模式,默认开启此模式, not_smoothly:非平滑模式, manual:手动模式
+    print-dsl: true # 开启控制台打印通过本框架生成的DSL语句,默认为开启,测试稳定后的生产环境建议关闭,以提升少量性能
+    distributed: false # 当前项目是否分布式项目,默认为true,在非手动托管索引模式下,若为分布式项目则会获取分布式锁,非分布式项目只需synchronized锁.
+    reindexTimeOutHours: 72 # 重建索引超时时间 单位小时,默认72H 可根据ES中存储的数据量调整
+    async-process-index-blocking: true # 异步处理索引是否阻塞主线程 默认阻塞 数据量过大时调整为非阻塞异步进行 项目启动更快
+    active-release-index-max-retry: 4320 # 分布式环境下,平滑模式,当前客户端激活最新索引最大重试次数,若数据量过大,重建索引数据迁移时间超过4320/60=72H,可调大此参数值,此参数值决定最大重试次数,超出此次数后仍未成功,则终止重试并记录异常日志
+    active-release-index-fixed-delay: 60 # 分布式环境下,平滑模式,当前客户端激活最新索引最大重试次数 分布式环境下,平滑模式,当前客户端激活最新索引重试时间间隔 若您期望最终一致性的时效性更高,可调小此值,但会牺牲一些性能
+    db-config:
+      map-underscore-to-camel-case: true # 是否开启下划线转驼峰 默认为false
+      id-type: customize  # id生成策略 customize为自定义,id值由用户生成,比如取MySQL中的数据id,如缺省此项配置,则id默认策略为es自动生成
+      field-strategy: not_null # 字段更新策略 默认为not_null
+      index-prefix: project_ # 索引前缀,可用于区分环境  默认为空 用法和MP的tablePrefix一样的作用和用法
+      enable-track-total-hits: true # 默认开启,查询若指定了size超过1w条时也会自动开启,开启后查询所有匹配数据,若不开启,会导致无法获取数据总条数,其它功能不受影响.
+      refresh-policy: immediate # 数据刷新策略,默认为不刷新
+      batch-update-threshold: 10000 # 批量更新接口的阈值 默认值为1万,突破此值需要同步调整enable-track-total-hits=true,@IndexName.maxResultWindow > 1w,并重建索引.
+      smartAddKeywordSuffix: true # 是否智能为字段添加.keyword后缀 默认开启,开启后会根据当前字段的索引类型及当前查询类型自动推断本次查询是否需要拼接.keyword后缀

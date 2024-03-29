@@ -1,0 +1,29 @@
+server:
+ port: 7004
+mybatis-plus:
+  global-config:
+    db-config:
+      logic-delete-field: available # 全局逻辑删除的实体字段名(since 3.3.0,配置后可以忽略不配置步骤2)
+      logic-delete-value: 'NO'
+      logic-not-delete-value: 'YES'
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    default-enum-type-handler: org.apache.ibatis.type.EnumOrdinalTypeHandler
+  mapper-locations: classpath*:/com/wxy/transactional/mapper/xml/*.xml
+spring:
+  name: shanghai
+  datasource:
+    username: @mysql.master.username@
+    password: @mysql.master.password@
+    url: jdbc:mysql://@mysql.master.ip@:@mysql.master.port@/shardingjdbc1?characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
+    driver-class-name: com.mysql.jdbc.Driver
+    hikari:
+      connection-timeout: 60000
+      validation-timeout: 3000
+      idle-timeout: 60000 # 此属性控制允许连接在池中保持空闲状态的最长时间
+      login-timeout: 5
+      max-lifetime: 60000
+      maximum-pool-size: 10
+      minimum-idle: 10
+      read-only: false
+      connection-test-query: select 1

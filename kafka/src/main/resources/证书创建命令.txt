@@ -1,0 +1,25 @@
+创建密钥仓库，用于存储证书文件
+keytool -keystore server.keystore.jks -alias kafka -validity 100000 -genkey
+wxykafka
+创建CA
+openssl req -new -x509 -keyout ca-key -out ca-cert -days 100000
+
+将生成的CA添加到客户信任库
+keytool -keystore client.truststore.jks -alias CARoot -import -file ca-cert
+
+为broker提供信任库以及所有客户端签名了密钥的CA证书
+keytool -keystore server.truststore.jks -alias CARoot -import -file ca-cert
+
+签名证书，用自己生成的CA来签名前面生成的证书
+1、从密钥仓库导出证书
+keytool -keystore server.keystore.jks -alias kafka -certreq -file cert-file
+
+2、用CA签名：
+openssl x509 -req -CA ca-cert -CAkey ca-key -in cert-file -out cert-signed -days 100000 -CAcreateserial -passin pass:wxykafka
+
+3、导入CA的证书和已签名的证书到密钥仓库
+keytool -keystore server.keystore.jks -alias CARoot -import -file ca-cert
+keytool -keystore server.keystore.jks -alias kafka -import -file cert-signed
+
+4.测试证书
+openssl s_client -debug -connect ip:8989 -tls1

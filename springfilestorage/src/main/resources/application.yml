@@ -1,0 +1,33 @@
+spring:
+  file-storage: #文件存储配置
+    default-platform: minio #默认使用的存储平台
+    thumbnail-suffix: ".min.jpg" #缩略图后缀，例如【.min.jpg】【.png】
+    minio: # MinIO，由于 MinIO SDK 支持 AWS S3，其它兼容 AWS S3 协议的存储平台也都可配置在这里
+      - platform: minio # 存储平台标识
+        enable-storage: true  # 启用存储
+        access-key: @minio.accessKey@
+        secret-key: @minio.secretKey@
+        end-point: @minio.ip@
+        bucket-name: wxytest
+        domain: @minio.ip@
+        base-path: /
+  datasource:
+    username: @mysql.master.username@
+    password: @mysql.master.password@
+    url: jdbc:mysql://@mysql.master.ip@:@mysql.master.port@/shardingjdbc3?characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false
+    driver-class-name: @mysql.master.driver-class-name@
+    hikari:
+      connection-timeout: 60000
+      validation-timeout: 3000
+      idle-timeout: 60000 # 此属性控制允许连接在池中保持空闲状态的最长时间
+      login-timeout: 5
+      max-lifetime: 60000
+      maximum-pool-size: 10
+      minimum-idle: 10
+      read-only: false
+      connection-test-query: select 1
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    default-enum-type-handler: org.apache.ibatis.type.EnumOrdinalTypeHandler

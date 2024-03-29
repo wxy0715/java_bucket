@@ -1,0 +1,23 @@
+package com.wxy.elasticsearch.config;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.env.EnvironmentPostProcessor;
+import org.springframework.core.Ordered;
+import org.springframework.core.env.ConfigurableEnvironment;
+
+/**
+ * 健康检查配置注入
+ */
+public class ActuatorEnvironmentPostProcessor implements EnvironmentPostProcessor, Ordered {
+
+	@Override
+	public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
+        System.setProperty("management.health.elasticsearch.enabled", "false");
+	}
+
+	@Override
+	public int getOrder() {
+		return Ordered.HIGHEST_PRECEDENCE;
+	}
+
+}

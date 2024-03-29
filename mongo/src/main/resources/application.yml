@@ -1,0 +1,18 @@
+#mongodb配置
+spring:
+  application:
+    name: mongo
+  data:
+    mongodb:
+      host: 8.142.156.127 #指定MongoDB服务地址
+      port: 27017 #指定端口，默认就为27017
+      database: account #指定使用的数据库(集合)
+      authentication-database: admin # 登录认证的逻辑库名
+      username: admin #用户名
+      password: wxy0715.. #密码
+
+server:
+  port: 8080
+
+      # uri: mongodb://<username>:<password>@127.0.0.1:27017/test
+#      uri: mongodb://@127.0.0.1:27017/test

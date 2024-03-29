@@ -1,0 +1,18 @@
+server:
+  port: 443
+  ssl:
+    key-store: 3702162_wechat.coding-jiangzh.com.pfx
+    key-store-password: 49Jk65Pi
+
+template:
+  templates:
+    - {"templateId":"1","templateFilePath":"C:\Users\sailing\Desktop\wxy\wxy\project\kafka\src\main\resources\template\template.json","active": true}
+    - {"templateId":"2","templateFilePath":"C:\Users\sailing\Desktop\wxy\wxy\project\kafka\src\main\resources\template\template.json","active": false}
+  template-result-type: 0  # 0-文件获取 1-数据库获取 2-ES
+  template-result-file-path: "C:/Users\sailing\Desktop\wxy\wxy\project\kafka\src\main\resources\template\templateResult.json"
+
+wechat:
+  kafka:
+    bootstrap_servers: "192.168.220.128:9092"
+    acks_config: "all"
+    partitioner_class: "com.imooc.jiangzh.kafka.producer.SamplePartition"

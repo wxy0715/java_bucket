@@ -1,0 +1,50 @@
+syntax = "proto3";
+option optimize_for = SPEED; // 加快解析
+option java_package="com.wxy.netty.codec2";   //指定生成到哪个包下
+option java_outer_classname="MyDataInfo"; // 外部类名, 文件名
+
+
+/*
+1.protobuf 可以使用message 管理其他的message。最终决定使用哪一个message作为传输对象
+2.假设你某个项目需要传输20个对象，你不可能新建20个proto文件吧。此时你就可以
+在一个文件里定义20个message，最后再用一个总的message（比方说这里的MyMessage）
+来决定在实际传输时真正需要传输哪一个对象
+3.因为你实际传输的时候大部分情况传输的都是一个对象，所以下面用oneof进行了限制
+4.是否可以传多个对象呢？我个人认为是可以的，比如可以通过map(目前我也不太了解proto的语法)
+ */
+message MyMessage {
+
+    //定义一个枚举类型,DataType如果是0则表示一个Student对象实例，DataType这个名称自定义
+    enum DataType {
+        StudentType = 0; //在proto3 要求enum的编号从0开始
+        WorkerType = 1;
+    }
+
+    //用data_type 来标识传的是哪一个枚举类型，这里才真正开始定义MyMessage的数据类型
+    DataType data_type = 1;  //所有后面的数字都只是编号而已
+
+    /*
+    1.oneof关键字 表示每次枚举类型进行传输时，限制最多只能传输一个对象。
+    dataBody名称也是自定义的
+    2.为什么这里的序号是2呢？因为上面DataType data_type = 1  占了第一个序号了
+    3.MyMessage里真正出现的类型只有两个
+      ①DataType类型
+      ②Student类型或者Worker类型（这两个在真正传输的时候只会有一个出现）
+    */
+    oneof dataBody {
+        Student student = 2;  //注意这后面的数字也都只是编号而已
+        Worker worker = 3;
+    }
+
+
+}
+
+
+message Student {
+    int32 id = 1;//Student类的属性
+    string name = 2; //
+}
+message Worker {
+    string name=1;
+    int32 age=2;
+}

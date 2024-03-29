@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<included>
+    <springProperty scope="context" name="appName" source="spring.application.name"/>
+    <!-- 为logstash输出的JSON格式的Appender -->
+    <appender name="logstash" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+        <!--可以访问的logstash日志收集端口-->
+        <destination>${logstash.address}</destination>
+<!--        <destination>${LOGSTASH_HOST:-192.168.1.80}:${LOGSTASH_PORT:-8560}</destination>-->
+        <keepAliveDuration>5 minutes</keepAliveDuration>
+        <!-- 日志输出编码 -->
+        <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder">
+            <providers>
+                <provider class="com.yomahub.tlog.logstash.logback.TLogLogstashLogbackProvider"/>
+                <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+                <pattern>
+                    <pattern>
+                        {
+                        "level": "%level",
+                        "thread": "%thread",
+                        "class": "%logger{40}",
+                        "message": "%message",
+                        "stack_trace": "%exception{10}",
+                        "client_time": "%d{yyyy-MM-dd HH:mm:ss.SSS}"
+                        }
+                    </pattern>
+                </pattern>
+            </providers>
+            <fieldNames class="net.logstash.logback.fieldnames.ShortenedFieldNames"/>
+            <customFields>{"spring.application.name":"${appName}"}</customFields>
+        </encoder>
+    </appender>
+
+    <root level="info">
+        <appender-ref ref="logstash"/>
+    </root>
+</included>

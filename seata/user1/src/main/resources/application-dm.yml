@@ -1,0 +1,60 @@
+spring:
+  datasource:
+    dynamic:
+      primary: master #设置默认的数据源或者数据源组,默认值即为master
+      strict: false #严格匹配数据源,默认false. true未匹配到指定数据源时抛异常,false使用默认数据源
+      datasource:
+        master:
+          username: SYSDBA
+          password: SYSDBA
+          url: jdbc:dm://127.0.0.1:5236?schema=SEATA1
+          driver-class-name: dm.jdbc.driver.DmDriver
+    druid:
+      initial-size: 5
+      max-active: 20
+      min-idle: 5
+      time-between-eviction-runs-millis: 60000
+      max-wait: 60000
+      min-evictable-idle-time-millis: 300000
+      validation-query: SELECT 1
+      testOnBorrow: false
+      test-on-return: false
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      #配置监控统计拦截的filters，stat:监控统计、log4j：日志记录、wall：防御sql注入
+      #如果允许时报错 java.lang.ClassNotFoundException:org.apache.log4j.Priority
+      #则导入 log4j 依赖即可
+      filters: stat,wall,slf4j
+      filter:
+        stat:
+          log-slow-sql: true
+          slow-sql-millis: 2000
+          db-type: dm
+        slf4j:
+          enabled: true
+          statement-log-error-enabled: true
+          statement-create-after-log-enabled: false
+          statement-close-after-log-enabled: false
+          result-set-open-after-log-enabled: false
+          result-set-close-after-log-enabled: false
+      use-global-data-source-stat: true
+      connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+      #SQL监控
+      stat-view-servlet:
+        enabled: true
+        login-username: druid
+        login-password: druid
+        allow:
+        deny:
+        reset-enable: false
+        url-pattern: /druid/*
+        #web拦截
+      web-stat-filter:
+        url-pattern: /*
+        exclusions: "*.js,*.gif,*.jpg,*.css,/druid/*"
+        enabled: true
+        session-stat-enable: true       # 开启session统计功能
+        session-stat-max-count: 1000    # session的最大个数,默认100
+      aop-patterns: com.eccom.asset.mapper.* #Spring监控开启
+      #time-between-log-stats-millis: 1000 #记录持久化
+      test-while-idle: true

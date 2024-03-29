@@ -1,0 +1,7 @@
+配置用户
+useradd -d /ftp2 -g ftp -s /sbin/nologin ftp2
+echo 用户名|passwd --stdin 密码
+service vsftpd restart
+
+登录如果530报错
+修改/etc/pam.d/vsftpd文件，把pam_shells.so改成pam_nologin.so //默认ftp用户是没有登录shell权限
