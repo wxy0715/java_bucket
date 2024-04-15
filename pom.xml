@@ -22,7 +22,6 @@
 		<module>seata</module>
 		<module>shardingjdbc</module>
 		<module>spring-retry</module>
-		<module>springfilestorage</module>
 		<module>transactional</module>
 		<module>xxl-job-admin</module>
 		<module>xxl-job-sample</module>
