@@ -63,7 +63,7 @@ spring:
       connection-test-query: select 1
   redis:
     database: 0
-    host: 8.142.156.127
+    host: 101.43.76.117
     password: redis
     port: 6379
     mode: single

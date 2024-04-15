@@ -1,4 +1,4 @@
-package com.wxy.mybatisplus.config;
+package com.wxy.mybatis;
 
 import com.baomidou.mybatisplus.extension.ddl.SimpleDdl;
 import org.springframework.stereotype.Component;
