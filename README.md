@@ -9,7 +9,7 @@
 | windows+linux改密 | `changePwd`                            |
 | 各种锁工具类          | `distributeLock`                       |
 | ElasticSearch   | `elasticsearch`                        |
-| 监听日志文件          | `filelsten`                            |
+| 目录/文件监听服务       | `filelsten`                            |
 | httpclient封装    | `forest`                               |
 | ftp服务及客户端代理     | `ftpProxy`                             |
 | java核心技术        | `javacore`                             |
