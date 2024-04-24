@@ -25,7 +25,7 @@ public class LoadLogDirectoryRunable implements Runnable{
             InputStreamReader inputReader = null;
             BufferedReader bf = null;
             try {
-//                logger.info("==========日志监控加载{}文件，读取监控日志目录开始........",path);
+                logger.info("==========日志监控加载{}文件，读取监控日志目录开始........",path);
                 is = new FileInputStream(path);
                 inputReader = new InputStreamReader(is);
                 bf = new BufferedReader(inputReader);

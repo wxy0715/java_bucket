@@ -14,10 +14,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 @Service
 public class LogContentQueueService extends Thread{
     private final static Logger logger = LoggerFactory.getLogger(LogContentQueueService.class);
-    private String nodeIp;
     public static final LinkedBlockingQueue<String> logQueue = new LinkedBlockingQueue<>(10000);
-    private long overTime = 1000*20;
-
     @Override
     public void run() {
         while (true){
