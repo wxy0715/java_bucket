@@ -144,7 +144,7 @@ public class FTPClientPool implements ObjectPool<FTPClient> {
 		ftpClientConfigure.setClientTimeout(200000000);
 		ftpClientConfigure.setPort(21);
 		ftpClientConfigure.setEncoding("UTF-8");
-		ftpClientConfigure.setPassword("ftpuser");
+		ftpClientConfigure.setPassword("wxy0715..");
 		ftpClientConfigure.setRetryTimes(1);
 		ftpClientConfigure.setPassiveMode("true");
 		//ftpClientConfigure.setTransferFileType(FTP.LOCAL_FILE_TYPE);
@@ -153,7 +153,6 @@ public class FTPClientPool implements ObjectPool<FTPClient> {
 		FTPClient ftpClient = ftpClientPool.borrowObject();
 		ftpClient.changeWorkingDirectory("/opt");
 		ftpClient.configure(new FTPClientConfig("com.zznode.tnms.ra.c11n.nj.resource.ftp.UnixFTPEntryParser"));
-		System.out.println(ftpClient.list());
 		System.out.println(ftpClient.list());
 	}
 }

@@ -1,17 +1,16 @@
 ## 搭建手册
-
 参考:https://www.cnblogs.com/guohongwei/p/10848698.html
 
-## 文档手册
+配置用户
+```shell
+useradd -d /ftp2 -g ftp -s /sbin/nologin ftp2
+echo 用户名|passwd --stdin 密码
+service vsftpd restart
+```
 
-FTP阿里云手册操作API:https://developer.aliyun.com/article/319859?spm=a2c6h.13813017.0.dArticle738638.3e783109t4yxPp
-
-FTP连接池:https://developer.aliyun.com/article/54707
 
 ## 常见错误
-
-- ftp vsftpd 530 login incorrect 
-
+- ftp vsftpd 530 login incorrect
 ```
 1.密码错误。
 2.检查/etc/vsftpd/vsftpd.conf配置
@@ -25,9 +24,11 @@ vim /etc/pam.d/vsftpd
 注释掉
 #auth    required pam_shells.so
 4.重启
+
+或者修改/etc/pam.d/vsftpd文件，把pam_shells.so改成pam_nologin.so //默认ftp用户是没有登录shell权限
 ```
 
-- ftpClient获取文件listFiles为空 
+- ftpClient获取文件listFiles为空
 
   ```
   ftpClient.changeWorkingDirectory(path);  
@@ -36,5 +37,3 @@ vim /etc/pam.d/vsftpd
               ftpClient.configure(new FTPClientConfig("com.zznode.tnms.ra.c11n.nj.resource.ftp.UnixFTPEntryParser"));  
    FTPFile[] files = ftpClient.listFiles();
   ```
-
-  

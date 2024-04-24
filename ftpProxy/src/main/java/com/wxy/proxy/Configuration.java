@@ -19,11 +19,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 import java.net.*;
 import java.util.*;
 
-/**
- * @author wxy
- * @description 传参信息,配置参数
- * @create 2021/8/5 15:54
- */
 class Configuration {
     Properties properties;
 
@@ -65,8 +60,9 @@ class Configuration {
 
     public Configuration(Properties properties) throws UnknownHostException {
         this.properties = properties;
-        // 判断给没给代理监听端口,默认值8089
-        bindPort = getInt("bind_port", 8089);
+        // 代理端口
+        bindPort = getInt("bind_port", 21);
+        // 代理地址
         String ba = getString("bind_address");
         bindAddress = ba == null ? null : InetAddress.getByName(ba.trim());
         // 主动模式绑定的端口
@@ -101,9 +97,11 @@ class Configuration {
 
         isUrlSyntaxEnabled = getBool("enable_url_syntax", true);
         validateDataConnection = getBool("validate_data_connection", true);
+        // 打印调试信息
         debug = getBool("output_debug_info", false);
 
 
+        // 自定义报错
         msgConnect = "220 " +
             getString("msg_connect", "Java FTP Proxy Server (usage: USERID=user@site) ready.");
 
@@ -127,10 +125,12 @@ class Configuration {
                       "Unable to resolve address for " + masqueradeHostname +
                        " - closing connection.");
 
+        // 黑名单配置
         denyCommand = getStringArray("deny_command");
         denyUser = getStringArray("deny_user");
         denyKeywork = getStringArray("deny_keywork");
         denyLastname = getStringArray("deny_lastname");
+        // 文件上传限制
         uploadFilesize = getInt("upload_filesize", -1);
         if (uploadFilesize == -1) {
             uploadFilesize = null;

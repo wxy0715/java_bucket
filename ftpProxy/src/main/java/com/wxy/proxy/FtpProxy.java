@@ -24,42 +24,46 @@ import java.io.*;
 import java.util.*;
 
 public class FtpProxy extends Thread {
-    private final static String defaultConfigFile = "/Users/wangxingyu/wxy/project/ftpProxy/src/main/resources/ftpproxy.conf";
+    private final static String defaultConfigFile = "/Users/wangxingyu/wxy/java_bucket/ftpProxy/src/main/resources/ftpproxy.conf";
 
     final static int DEFAULT_BACKLOG = 50;
     final static int DATABUFFERSIZE = 512;
 
-    // 代理启动的socket
-    Socket skControlClient,
-    // 真正的服务器的监听socket
-            skControlServer;
-    BufferedReader brClient, brServer;
-    PrintStream psClient, osServer;
-
-    ServerSocket ssDataClient, ssDataServer;
-    Socket skDataClient, skDataServer;
+    // 客户端连接的socket
+    Socket clientSocket;
+    Socket skControlServer;
+    BufferedReader brClient;
+    BufferedReader brServer;
+    // 客户端输出
+    PrintStream psClient;
+    PrintStream osServer;
+    ServerSocket ssDataClient;
+    ServerSocket ssDataServer;
+    Socket skDataClient;
+    Socket skDataServer;
 
     // IP of interface facing client and server respectively.
     String sLocalClientIP;
     String sLocalServerIP;
 
-    private Configuration config;
+    // 参数配置类
+    private final Configuration config;
 
     DataConnect dcData;
     boolean serverPassive = false;
     boolean userLoggedIn = false;
     boolean connectionClosed = false;
 
-    final static Map lastPorts = new HashMap();
+    final static Map<int[],Integer> lastPorts = new HashMap<>();
 
     // Constants for debug output.
     final static PrintStream pwDebug = System.out;
     final static String server2proxy = "S->P: ";
-    final static String proxy2server = "S<-P: ";
+    final static String proxy2server = "P->S: ";
     final static String proxy2client = "P->C: ";
-    final static String client2proxy = "P<-C: ";
+    final static String client2proxy = "C->P: ";
     final static String server2client = "S->C: ";
-    final static String client2server = "S<-C: ";
+    final static String client2server = "C->S: ";
 
 
 
@@ -68,12 +72,9 @@ public class FtpProxy extends Thread {
     public static String CRLF = "\r\n";
 
 
-    public FtpProxy(Configuration config, Socket skControlClient) {
+    public FtpProxy(Configuration config, Socket clientSocket) {
         this.config = config;
-        this.skControlClient = skControlClient;
-
-        // sLocalClientIP is initialized in main(), to handle
-        // masquerade_host where the IP address for the host is dynamic.
+        this.clientSocket = clientSocket;
     }
 
     public static void main(String[] args) {
@@ -92,46 +93,33 @@ public class FtpProxy extends Thread {
         } catch (Exception e) {
             System.err.println("Invalid configuration: " + e.getMessage());
             System.exit(0);
-            // To make it compile.
             return;
         }
-
-        // The configuration class removes the configuration variables when
-        // reading them - any remaining variables are unknown and thus invalid.
         if (properties.size() > 0) {
             // 确保所有参数都有效
             System.err.println("Invalid configuration variable: " + properties.propertyNames().nextElement());
             System.exit(0);
         }
-
         int port = config.bindPort;
-
         try {
-            ServerSocket ssControlClient;
-
-            // 启动socket监听,bind_port 默认21
+            ServerSocket proxySocket;
             if (config.bindAddress == null) {
-                ssControlClient = new ServerSocket(port);
+                proxySocket = new ServerSocket(port);
             } else {
-                ssControlClient = new ServerSocket(port, DEFAULT_BACKLOG, config.bindAddress);
+                proxySocket = new ServerSocket(port, DEFAULT_BACKLOG, config.bindAddress);
             }
-
             if (config.debug) {
-                pwDebug.println("Listening on port " + port);
+                pwDebug.println("代理程序监听端口 " + port);
             }
-
             while (true) {
-                Socket skControlClient = ssControlClient.accept();
-                if (config.debug) {
-                    pwDebug.println("New connection");
-                }
-                new FtpProxy(config, skControlClient).start();
+                Socket clientSocket = proxySocket.accept();
+                new FtpProxy(config, clientSocket).start();
             }
         } catch (IOException e) {
             if (config.debug) {
                 e.printStackTrace(pwDebug);
             } else {
-                System.err.println(e.toString());
+                System.err.println(e);
             }
         }
     }
@@ -139,27 +127,25 @@ public class FtpProxy extends Thread {
     @Override
     public void run() {
         try {
-            // 代理启一个port获取客户端输出
-            brClient = new BufferedReader(new InputStreamReader(skControlClient.getInputStream()));
+            brClient = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             if (config.debug) {
-                pwDebug.println("代理启动端口:"+skControlClient.getPort());
+                pwDebug.println("客户端连接端口:"+clientSocket.getPort());
             }
-            psClient = new PrintStream(skControlClient.getOutputStream());
+            psClient = new PrintStream(clientSocket.getOutputStream());
             // 获取客户端是不是在白名单内
             if ((config.allowFrom != null &&
-                 !isInSubnetList(config.allowFrom, skControlClient.getInetAddress())) ||
-                isInSubnetList(config.denyFrom, skControlClient.getInetAddress())) {
-
+                 !isInSubnetList(config.allowFrom, clientSocket.getInetAddress())) ||
+                isInSubnetList(config.denyFrom, clientSocket.getInetAddress())) {
                 String toClient = config.msgOriginAccessDenied;
                 psClient.print(toClient + CRLF);
                 if (config.debug) pwDebug.println(proxy2client + toClient);
-                skControlClient.close();
+                clientSocket.close();
                 return;
             }
 
             try {
                 if (config.masqueradeHostname == null) {
-                    sLocalClientIP = skControlClient.getLocalAddress().getHostAddress().replace('.', ',');
+                    sLocalClientIP = clientSocket.getLocalAddress().getHostAddress().replace('.', ',');
                 } else {
                     sLocalClientIP = InetAddress.getByName(config.masqueradeHostname.trim()).
                         getHostAddress().replace('.', ',');
@@ -168,10 +154,11 @@ public class FtpProxy extends Thread {
                 String toClient = config.msgMasqHostDNSError;
                 psClient.print(toClient + CRLF);
                 if (config.debug) pwDebug.println(proxy2client + toClient);
-                skControlClient.close();
+                clientSocket.close();
                 return;
             }
 
+            // 开始获取服务端连接信息(用户名,服务器IP,端口)
             String username = null;
             String hostname = null;
             int serverport = 21;
@@ -181,7 +168,6 @@ public class FtpProxy extends Thread {
                 username = null;
                 hostname = config.autoHostname;
                 serverport = config.autoPort;
-
             }
             else {
                 if (config.onlyAuto) { // and autoHostname == null
@@ -193,7 +179,7 @@ public class FtpProxy extends Thread {
                 psClient.flush();
                 if (config.debug) pwDebug.println(proxy2client + toClient);
 
-                // The username is read from the client.
+                // 读取客户端命令
                 String fromClient = brClient.readLine();
                 if (config.debug) pwDebug.println(client2proxy + fromClient);
 
@@ -229,23 +215,21 @@ public class FtpProxy extends Thread {
                 String toClient = config.msgIncorrectSyntax;
                 if (config.debug) pwDebug.println(proxy2client + toClient);
                 psClient.print(toClient + CRLF);
-                skControlClient.close();
+                clientSocket.close();
                 return;
             }
 
             InetAddress serverAddress = InetAddress.getByName(hostname);
-            // 代理的服务端白名单
+            // 代理的服务端白名单验证
             if ((config.allowTo != null &&
                  !isInSubnetList(config.allowTo, serverAddress)) ||
                 isInSubnetList(config.denyTo, serverAddress)) {
-
                 String toClient = config.msgDestinationAccessDenied;
-
                 psClient.print(toClient + CRLF);
-                skControlClient.close();
+                clientSocket.close();
                 return;
             }
-            // 代理模式
+            // 代理主动/被动模式
             serverPassive = config.useActive != null && !isInSubnetList(config.useActive, serverAddress) ||
                             isInSubnetList(config.usePassive, serverAddress);
             if (config.debug){
@@ -343,7 +327,7 @@ public class FtpProxy extends Thread {
             if (dcData != null) dcData.close();
 
             if (ssDataClient == null || !config.clientOneBindPort) {
-                ssDataClient = getServerSocket(config.clientBindPorts, skControlClient.getLocalAddress());
+                ssDataClient = getServerSocket(config.clientBindPorts, clientSocket.getLocalAddress());
             }
 
             if (ssDataClient != null) {
@@ -383,7 +367,7 @@ public class FtpProxy extends Thread {
             if (config.debug) pwDebug.println(client2proxy + fromClient);
 
             try {
-                skDataClient = new Socket(skControlClient.getInetAddress(), port);
+                skDataClient = new Socket(clientSocket.getInetAddress(), port);
 
                 String toClient = "200 PORT command successful.";
                 psClient.print(toClient + CRLF);
@@ -616,7 +600,7 @@ public class FtpProxy extends Thread {
                         }
                         // Check to see if DataConnection is from same IP address
                         // as the ControlConnection.
-                        if (skControlClient.getInetAddress().getHostAddress().
+                        if (clientSocket.getInetAddress().getHostAddress().
                             compareTo(sockets[i].getInetAddress().getHostAddress()) == 0) {
 
                             validDataConnection = true;

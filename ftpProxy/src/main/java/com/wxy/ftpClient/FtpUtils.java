@@ -7,6 +7,11 @@ import org.slf4j.LoggerFactory;
 import java.io.*;
 import java.net.SocketException;
 
+/**
+ * ftp工具类
+ * @author wangxingyu
+ * @date 2024/04/24 16:32:24
+ */
 public class FtpUtils {
 	//打印日志使用
 	private static final Logger log = LoggerFactory.getLogger(FtpUtils.class);
@@ -122,7 +127,7 @@ public class FtpUtils {
 	}
 
 	public static void main(String[] args) throws IOException {
-		FTPClient ftpClient = getFTPClient("81.69.172.101", "ftpuser1", "ftp", 21);
+		FTPClient ftpClient = getFTPClient("101.43.60.8", "ftpuser", "wxy0715..", 21);
 		ftpClient.changeWorkingDirectory("/opt");
 		ftpClient.enterLocalPassiveMode();
 		//由于apache不支持中文语言环境，通过定制类解析中文日期类型
