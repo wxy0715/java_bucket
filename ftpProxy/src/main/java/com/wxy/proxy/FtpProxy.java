@@ -29,13 +29,15 @@ public class FtpProxy extends Thread {
     final static int DEFAULT_BACKLOG = 50;
     final static int DATABUFFERSIZE = 512;
 
-    // 客户端连接的socket
+    // 客户端的socket
     Socket clientSocket;
-    Socket skControlServer;
+    // 服务端的socket
+    Socket serverControlSocket;
+    // 客户端的读取和输出
     BufferedReader brClient;
-    BufferedReader brServer;
-    // 客户端输出
     PrintStream psClient;
+    // 服务端的读取和输出
+    BufferedReader brServer;
     PrintStream osServer;
     ServerSocket ssDataClient;
     ServerSocket ssDataServer;
@@ -233,14 +235,14 @@ public class FtpProxy extends Thread {
             serverPassive = config.useActive != null && !isInSubnetList(config.useActive, serverAddress) ||
                             isInSubnetList(config.usePassive, serverAddress);
             if (config.debug){
-                pwDebug.println(serverPassive?"被动模式":"主动模式");
-                pwDebug.println("Connecting to " + hostname + " on port " + serverport);
+                pwDebug.println(serverPassive?"被动模式":"主动模式" + "连接服务端地址为:" + hostname + " 端口为: " + serverport);
             }
 
-            try {
-                skControlServer = new Socket(serverAddress, serverport);
+            // 启动socket连接服务端
+            try  {
+                serverControlSocket = new Socket(serverAddress, serverport);
                 if (config.debug) {
-                    pwDebug.println("代理启动端口:"+skControlServer.getLocalPort()+"连接服务器");
+                    pwDebug.println("代理启动端口:"+serverControlSocket.getLocalPort()+"连接服务器");
                 }
             } catch (ConnectException e) {
                 String toClient = config.msgConnectionRefused;
@@ -250,9 +252,9 @@ public class FtpProxy extends Thread {
                 return;
             }
 
-            brServer = new BufferedReader(new InputStreamReader(skControlServer.getInputStream()));
-            osServer = new PrintStream(skControlServer.getOutputStream(), true);
-            sLocalServerIP = skControlServer.getLocalAddress().getHostAddress().replace('.' ,',');
+            brServer = new BufferedReader(new InputStreamReader(serverControlSocket.getInputStream()));
+            osServer = new PrintStream(serverControlSocket.getOutputStream(), true);
+            sLocalServerIP = serverControlSocket.getLocalAddress().getHostAddress().replace('.' ,',');
 
             if (!config.onlyAuto) {
                 String fromServer = readResponseFromServer(false);
@@ -458,9 +460,9 @@ public class FtpProxy extends Thread {
 
             int port = parsePort(fromServer);
 
-            if (config.debug) pwDebug.println("Server: " + skControlServer.getInetAddress() + ":" + port);
+            if (config.debug) pwDebug.println("Server: " + serverControlSocket.getInetAddress() + ":" + port);
 
-            skDataServer = new Socket(skControlServer.getInetAddress(), port);
+            skDataServer = new Socket(serverControlSocket.getInetAddress(), port);
 
             (dcData = new DataConnect(s, skDataServer)).start();
         } else {
@@ -469,7 +471,7 @@ public class FtpProxy extends Thread {
             }
 
             if (ssDataServer == null || !config.serverOneBindPort) {
-                ssDataServer = getServerSocket(config.serverBindPorts, skControlServer.getLocalAddress());
+                ssDataServer = getServerSocket(config.serverBindPorts, serverControlSocket.getLocalAddress());
             }
 
             if (ssDataServer != null) {
