@@ -9,6 +9,8 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -53,6 +55,33 @@ public class EsController {
     @PostMapping("/insert")
     public Integer insert(@RequestBody Document document) {
         return documentMapper.insert(document);
+    }
+
+    /**
+     * 插入
+     */
+    @PostMapping("/insertTest")
+    public Integer insertTest() {
+        List<Document> documents = generateDocuments(100);
+        return documentMapper.insertBatch(documents);
+    }
+
+    public static List<Document> generateDocuments(int count) {
+        List<Document> documents = new ArrayList<>(count);
+        for (int i = 0; i < count; i++) {
+            Document document = new Document();
+            document.setId((long) i);
+            document.setMoney(BigDecimal.valueOf(Math.random() * 1000));
+            document.setType((int) (Math.random() * 10));
+            document.setTitle("Title " + i);
+            document.setContent("Content " + i);
+            document.setHighlightContent("Highlight Content " + i);
+            document.setScope((float) (Math.random() * 100));
+            document.setIpAddress("192.168.0." + (i % 255));
+
+            documents.add(document);
+        }
+        return documents;
     }
 
     /**

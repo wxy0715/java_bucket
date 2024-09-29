@@ -12,6 +12,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
+import org.springframework.util.StopWatch;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,12 +27,16 @@ public class AccountController {
 
     @GetMapping("/insert")
     public void test1() {
-        long size = 20000;
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        // 插入数据
+        long size = 160000;
         long length = size/20000;
         for (int i = 0; i <length; i++) {
             insert();
         }
-
+        stopWatch.stop();
+        System.out.println("插入耗时秒:" + stopWatch.getTotalTimeSeconds());
     }
 
 //    @GetMapping("/update")
@@ -45,7 +50,7 @@ public class AccountController {
     @GetMapping("/find")
     public void find() {
         Long startTime = System.currentTimeMillis();
-        List<Account> accountList = accountDao.findByProjectId(1749610037095055360L);
+        List<Account> accountList = accountDao.findByProjectId(1840215777611362317L);
         System.out.println("查询数量:" + accountList.size());
         System.out.println("查询耗时秒:" + (System.currentTimeMillis()-startTime)/1000);
         System.out.println(accountList.size());
