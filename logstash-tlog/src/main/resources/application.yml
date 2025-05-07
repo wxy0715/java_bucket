@@ -4,3 +4,6 @@ server:
 spring:
   application:
     name: elk
+
+tlog:
+  enable-invoke-time-print: true

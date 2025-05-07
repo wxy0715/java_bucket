@@ -3,6 +3,7 @@ package com.wxy.mybatisplus.service.impl.user;
 import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.wxy.mybatisplus.entity.User;
+import com.wxy.mybatisplus.enums.AgeEnum;
 import com.wxy.mybatisplus.mapper.UserMapper;
 import com.wxy.mybatisplus.service.api.IUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
