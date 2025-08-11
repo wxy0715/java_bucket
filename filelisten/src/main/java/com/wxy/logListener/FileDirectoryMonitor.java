@@ -11,9 +11,7 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @Description: 文件目录监控器
- * @Auther:wxy
- * @Date:2020/9/18
+ * 文件目录监控器
  */
 public class FileDirectoryMonitor {
     private final static Logger logger = LoggerFactory.getLogger(FileDirectoryMonitor.class);

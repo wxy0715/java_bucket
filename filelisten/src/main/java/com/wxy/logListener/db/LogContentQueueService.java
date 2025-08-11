@@ -1,4 +1,4 @@
-package com.wxy.logListener;
+package com.wxy.logListener.db;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

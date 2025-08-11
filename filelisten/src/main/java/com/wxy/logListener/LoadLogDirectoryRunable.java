@@ -10,9 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @Description:
- * @Auther:wxy
- * @Date:2020/9/18
+ * 监听入口
  */
 public class LoadLogDirectoryRunable implements Runnable{
     private final static Logger logger = LoggerFactory.getLogger(LoadLogDirectoryRunable.class);

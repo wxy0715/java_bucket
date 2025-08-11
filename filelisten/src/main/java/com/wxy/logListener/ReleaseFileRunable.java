@@ -4,9 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * @Description:  释放并重新监听日志文件
- * @Auther:wxy
- * @Date:2020/9/18
+ * 释放并重新监听日志文件
  */
 public class ReleaseFileRunable implements Runnable{
     private final static Logger logger = LoggerFactory.getLogger(LogContentListener.class);

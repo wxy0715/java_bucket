@@ -1,5 +1,6 @@
 package com.wxy.logListener;
 
+import com.wxy.logListener.db.LogContentQueueService;
 import com.wxy.logListener.tailer.TailerCustom;
 import com.wxy.logListener.tailer.TailerListenerAdapter;
 import org.slf4j.Logger;
@@ -8,9 +9,7 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 
 /**
- * @Description: 日志内容监听器，用于动态监听日志写入的内容
- * @Auther:wxy
- * @Date:2020/9/18
+ * 日志内容监听器，用于动态监听日志写入的内容
  */
 public class LogContentListener {
     private final static Logger logger = LoggerFactory.getLogger(LogContentListener.class);

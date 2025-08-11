@@ -12,9 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @Description: 日志文件监听
- * @Auther:wxy
- * @Date:2020/9/18
+ * 日志文件监听
  */
 public class LogFileListener implements FileAlterationListener {
     private final static Logger logger = LoggerFactory.getLogger(LogFileListener.class);
