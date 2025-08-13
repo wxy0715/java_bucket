@@ -17,7 +17,7 @@
     <!-- 负责写ELK日志-->
     <appender name="logstash" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
         <param name="Encoding" value="UTF-8"/>
-        <destination>192.168.10.101:4560</destination>
+        <destination>${LOGSTASH_HOST:-192.168.10.101}:${LOGSTASH_PORT:-4560}</destination>
         <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder" >
             <customFields>{"appname":"${appName}"}</customFields>
         </encoder>
