@@ -31,7 +31,7 @@
         </dependency>
         <dependency>
             <groupId>com.wxy</groupId>
-            <artifactId>api</artifactId>
+            <artifactId>facade</artifactId>
         </dependency>
         <dependency>
             <groupId>com.wxy</groupId>

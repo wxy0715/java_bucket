@@ -1,9 +1,0 @@
-server:
-  port: 8007
-
-spring:
-  application:
-    name: elk
-
-tlog:
-  enable-invoke-time-print: true

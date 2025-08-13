@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.cjree</groupId>
+	<artifactId>JDK17Template-api</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>JDK17Template-api</name>
+	<description>JDK17Template-api project for JDK17Template</description>
+
+	<properties>
+		<java.version>17</java.version>
+		<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.target>17</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<core.version>0.0.1-SNAPSHOT</core.version>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.cjree</groupId>
+				<artifactId>core-jdk17</artifactId>
+				<version>${core.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.cjree</groupId>
+			<artifactId>core-facade-jdk17</artifactId>
+		</dependency>
+	</dependencies>
+</project>

@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.cjree</groupId>
+	<artifactId>core-jdk17</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>core-jdk17</name>
+	<description>Demo project for Spring Boot</description>
+	<url>core-jdk17</url>
+	<licenses>
+		<license/>
+	</licenses>
+	<developers>
+		<developer/>
+	</developers>
+	<modules>
+		<module>core-basic</module>
+		<module>core-cache</module>
+        <module>core-cloud</module>
+        <module>core-common</module>
+		<module>core-facade</module>
+        <module>core-file</module>
+		<module>core-model</module>
+        <module>core-rabbitmq</module>
+		<module>core-elasticsearch</module>
+		<module>core-canal</module>
+    </modules>
+	<scm>
+		<connection/>
+		<developerConnection/>
+		<tag/>
+		<url/>
+	</scm>
+	<properties>
+		<!--编码-->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>17</java.version>
+		<core-snapshot.version>0.0.1-SNAPSHOT</core-snapshot.version>
+		<maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
+		<maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
+		<!--spring-->
+		<spring.boot.version>3.3.12</spring.boot.version>
+		<spring.cloud.version>2023.0.5</spring.cloud.version>
+		<spring.cloud.alibaba.version>2023.0.1.0</spring.cloud.alibaba.version>
+		<!-- knife4j -->
+		<knife4j-spring-boot-starter.version>4.5.0</knife4j-spring-boot-starter.version>
+		<!--seata-->
+		<seata.version>2.3.0</seata.version>
+		<mybatis-plus.version>3.5.12</mybatis-plus.version>
+		<dynamic-datasource-spring-boot-starter.version>4.3.1</dynamic-datasource-spring-boot-starter.version>
+		<!--druid-->
+		<druid.version>1.2.23</druid.version>
+		<!--数据库-->
+		<sqljdbc42.version>6.0</sqljdbc42.version>
+		<mysql.version>8.0.11</mysql.version>
+		<p6spy.version>3.9.1</p6spy.version>
+		<dm.version>18.1</dm.version>
+		<oracle.version>11.2.0.3</oracle.version>
+		<p6spy.version>3.9.1</p6spy.version>
+		<!-- fastjson -->
+		<fastjson2.version>2.0.57</fastjson2.version>
+		<fastjson.version>1.2.83</fastjson.version>
+		<!--hutool-->
+		<hutool-all.version>5.8.37</hutool-all.version>
+		<!--guava缓存-->
+		<guava.version>33.4.8-jre</guava.version>
+		<!--redis-->
+		<redisson.version>3.49.0</redisson.version>
+		<!--文件存储-->
+		<spring-file-storage.version>2.2.1</spring-file-storage.version>
+		<minio.version>8.4.3</minio.version>
+		<!--orika-core-->
+		<orika-core.version>1.5.4</orika-core.version>
+		<!--增强的 InheritableThreadLocal-->
+		<ttl.version>2.14.4</ttl.version>
+		<!--logstash-->
+		<logstash.version>6.6</logstash.version>
+		<!--jdframe-->
+		<jdframe.version>0.0.2</jdframe.version>
+		<!--es-->
+		<easy-es.version>2.0.0-beta2</easy-es.version>
+		<!--sh-->
+		<jsch.version>0.1.55</jsch.version>
+		<!--SSH协议工具-->
+		<ganymed-ssh2.version>build210</ganymed-ssh2.version>
+		<!--syslog-->
+		<syslog4j.version>0.9.60</syslog4j.version>
+		<!-- 系统信息-->
+		<oshi-core.version>4.2.0</oshi-core.version>
+	</properties>
+
+	<!-- 依赖声明 -->
+	<dependencyManagement>
+		<dependencies>
+		<!-- 统一依赖管理 -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>${spring.boot.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring.cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.alibaba.cloud</groupId>
+				<artifactId>spring-cloud-alibaba-dependencies</artifactId>
+				<version>${spring.cloud.alibaba.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+			<!--swagger-->
+			<dependency>
+				<groupId>com.github.xiaoymin</groupId>
+				<artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
+				<version>${knife4j-spring-boot-starter.version}</version>
+			</dependency>
+
+			<!--seata-->
+			<dependency>
+				<groupId>org.apache.seata</groupId>
+				<artifactId>seata-spring-boot-starter</artifactId>
+				<version>2.3.0</version>
+			</dependency>
+
+			<!-- mybatis 已集成annotation和core-->
+			<dependency>
+				<groupId>com.baomidou</groupId>
+				<artifactId>mybatis-plus-spring-boot3-starter</artifactId>
+				<version>${mybatis-plus.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.baomidou</groupId>
+				<artifactId>mybatis-plus-core</artifactId>
+				<version>${mybatis-plus.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.baomidou</groupId>
+				<artifactId>mybatis-plus-jsqlparser</artifactId>
+				<version>${mybatis-plus.version}</version>
+			</dependency>
+
+			<!-- 代码生成器，使用它解析表结构 已集成模板引擎 -->
+			<dependency>
+				<groupId>com.baomidou</groupId>
+				<artifactId>mybatis-plus-generator</artifactId>
+				<version>${mybatis-plus.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.baomidou</groupId>
+				<artifactId>mybatis-plus-extension</artifactId>
+				<version>${mybatis-plus.version}</version>
+			</dependency>
+			<!-- mp多数据源-->
+			<dependency>
+				<groupId>com.baomidou</groupId>
+				<artifactId>dynamic-datasource-spring-boot3-starter</artifactId>
+				<version>${dynamic-datasource-spring-boot-starter.version}</version>
+			</dependency>
+			<!--druid数据库连接池依赖-->
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>druid-spring-boot-starter</artifactId>
+				<version>${druid.version}</version>
+			</dependency>
+			<!--  数据库 JDBC  -->
+			<dependency>
+				<groupId>com.microsoft.sqlserver</groupId>
+				<artifactId>sqljdbc42</artifactId>
+				<version>${sqljdbc42.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>mysql</groupId>
+				<artifactId>mysql-connector-java</artifactId>
+				<version>${mysql.version}</version>
+			</dependency>
+			<!--  数据库 dm  -->
+			<dependency>
+				<groupId>dm</groupId>
+				<artifactId>dm.jdbc.driver</artifactId>
+				<version>${dm.version}</version>
+			</dependency>
+			<!--oracle-->
+			<dependency>
+				<groupId>com.oracle</groupId>
+				<artifactId>ojdbc6</artifactId>
+				<version>${oracle.version}</version>
+			</dependency>
+			<!-- sql性能分析插件 -->
+			<dependency>
+				<groupId>p6spy</groupId>
+				<artifactId>p6spy</artifactId>
+				<version>${p6spy.version}</version>
+			</dependency>
+
+			<!-- JSON 解析器和生成器 -->
+			<dependency>
+				<groupId>com.alibaba.fastjson2</groupId>
+				<artifactId>fastjson2</artifactId>
+				<version>${fastjson2.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>fastjson</artifactId>
+				<version>${fastjson.version}</version>
+			</dependency>
+
+			<!--ttl-->
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>transmittable-thread-local</artifactId>
+				<version>${ttl.version}</version>
+			</dependency>
+
+			<!--logstash-->
+			<dependency>
+				<groupId>net.logstash.logback</groupId>
+				<artifactId>logstash-logback-encoder</artifactId>
+				<version>${logstash.version}</version>
+			</dependency>
+
+			<!--hutool-->
+			<dependency>
+				<groupId>cn.hutool</groupId>
+				<artifactId>hutool-all</artifactId>
+				<version>${hutool-all.version}</version>
+			</dependency>
+
+			<!--guava缓存-->
+			<dependency>
+				<groupId>com.google.guava</groupId>
+				<artifactId>guava</artifactId>
+				<version>${guava.version}</version>
+			</dependency>
+
+			<!-- spring-file-storage 必须要引入 -->
+			<dependency>
+				<groupId>org.dromara.x-file-storage</groupId>
+				<artifactId>x-file-storage-spring</artifactId>
+				<version>${spring-file-storage.version}</version>
+			</dependency>
+			<!-- MinIO 不使用的情况下可以不引入 -->
+			<dependency>
+				<groupId>io.minio</groupId>
+				<artifactId>minio</artifactId>
+				<version>${minio.version}</version>
+			</dependency>
+
+			<!--redis分布式工具类-->
+			<dependency>
+				<groupId>org.redisson</groupId>
+				<artifactId>redisson-spring-boot-starter</artifactId>
+				<version>${redisson.version}</version>
+			</dependency>
+			<!--jdframe操作集合-->
+			<dependency>
+				<groupId>io.github.burukeyou</groupId>
+				<artifactId>jdframe</artifactId>
+				<version>${jdframe.version}</version>
+			</dependency>
+			<!--sh-->
+			<dependency>
+				<groupId>com.jcraft</groupId>
+				<artifactId>jsch</artifactId>
+				<version>${jsch.version}</version>
+			</dependency>
+			<!--SSH协议工具-->
+			<dependency>
+				<groupId>ch.ethz.ganymed</groupId>
+				<artifactId>ganymed-ssh2</artifactId>
+				<version>${ganymed-ssh2.version}</version>
+			</dependency>
+			<!--syslog-->
+			<dependency>
+				<groupId>org.graylog2</groupId>
+				<artifactId>syslog4j</artifactId>
+				<version>${syslog4j.version}</version>
+			</dependency>
+			<!-- 系统信息-->
+			<dependency>
+				<groupId>com.github.oshi</groupId>
+				<artifactId>oshi-core</artifactId>
+				<version>${oshi-core.version}</version>
+			</dependency>
+
+			<!--jdk17兼容-->
+			<dependency>
+				<groupId>javax.xml.bind</groupId>
+				<artifactId>jaxb-api</artifactId>
+				<version>2.3.1</version>
+			</dependency>
+			<dependency>
+				<groupId>com.sun.xml.bind</groupId>
+				<artifactId>jaxb-impl</artifactId>
+				<version>2.3.3</version>
+			</dependency>
+			<!--对象映射工具-->
+			<dependency>
+				<groupId>ma.glasnost.orika</groupId>
+				<artifactId>orika-core</artifactId>
+				<version>${orika-core.version}</version>
+			</dependency>
+			<!--es-->
+			<dependency>
+				<groupId>org.dromara.easy-es</groupId>
+				<artifactId>easy-es-boot-starter</artifactId>
+				<version>${easy-es.version}</version>
+			</dependency>
+
+			<!--****************************以下是项目模块的版本依赖管理***************************************-->
+			<dependency>
+				<groupId>com.cjree</groupId>
+				<artifactId>core-basic-jdk17</artifactId>
+				<version>${core-snapshot.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.cjree</groupId>
+				<artifactId>core-cache-jdk17</artifactId>
+				<version>${core-snapshot.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.cjree</groupId>
+				<artifactId>core-cloud-jdk17</artifactId>
+				<version>${core-snapshot.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.cjree</groupId>
+				<artifactId>core-common-jdk17</artifactId>
+				<version>${core-snapshot.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.cjree</groupId>
+				<artifactId>core-facade-jdk17</artifactId>
+				<version>${core-snapshot.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.cjree</groupId>
+				<artifactId>core-file-jdk17</artifactId>
+				<version>${core-snapshot.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.cjree</groupId>
+				<artifactId>core-model-jdk17</artifactId>
+				<version>${core-snapshot.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.cjree</groupId>
+				<artifactId>core-rabbitmq-jdk17</artifactId>
+				<version>${core-snapshot.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.cjree</groupId>
+				<artifactId>core-elasticsearch-jdk17</artifactId>
+				<version>${core-snapshot.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.cjree</groupId>
+				<artifactId>core-canal-jdk17</artifactId>
+				<version>${core-snapshot.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<!-- 使用 aliyun 的 Maven 源，提升下载速度 -->
+	<repositories>
+		<repository>
+			<id>aliyunmaven</id>
+			<name>aliyun</name>
+			<url>https://maven.aliyun.com/repository/public</url>
+		</repository>
+	</repositories>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<!-- maven-surefire-plugin 插件，用于运行单元测试。 -->
+				<!-- 注意，需要使用 3.0.X+，因为要支持 Junit 5 版本 -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>${maven-surefire-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${maven-compiler-plugin.version}</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+</project>

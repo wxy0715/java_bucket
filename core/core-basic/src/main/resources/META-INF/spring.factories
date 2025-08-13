@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+    com.cjree.core.basic.log.config.TLogWebAutoConfiguration,\
+    com.cjree.core.basic.log.server.TLogFeignAutoConfiguration
