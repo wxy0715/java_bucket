@@ -1,25 +1,19 @@
-package com.wxy.canal.config;
+package com.cjree.canal.process;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.otter.canal.protocol.CanalEntry;
-import com.wxy.canal.entity.User;
-import com.wxy.canal.mapper.UserMapper;
+import com.cjree.canal.entity.User;
+import com.cjree.core.canal.BaseAbstractStrategy;
+import com.cjree.core.canal.CanalDataHandler;
+import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
 import java.util.List;
 
-/**
- * @author 季小意
- */
 @Component
 @Slf4j
-public class UserProcess extends BaseAbstractStrategy<User>{
-
-    @Resource
-    private UserMapper userMapper;
+public class UserProcess extends BaseAbstractStrategy<User> {
 
     @PostConstruct
     private void init(){

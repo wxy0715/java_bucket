@@ -1,4 +1,4 @@
-package com.wxy.canal.entity;
+package com.cjree.canal.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;

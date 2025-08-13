@@ -51,23 +51,9 @@
             <groupId>com.cjree</groupId>
             <artifactId>core-file-jdk17</artifactId>
         </dependency>
-
-        <!-- 单元测试 -->
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.junit.vintage</groupId>
-                    <artifactId>junit-vintage-engine</artifactId>
-                </exclusion>
-            </exclusions>
+            <groupId>com.cjree</groupId>
+            <artifactId>core-canal-jdk17</artifactId>
         </dependency>
     </dependencies>
 
