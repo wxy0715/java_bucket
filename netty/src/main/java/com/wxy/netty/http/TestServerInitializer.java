@@ -1,4 +1,4 @@
-package com.wxy.netty.http;
+package com.cjree.netty.http;
 
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;

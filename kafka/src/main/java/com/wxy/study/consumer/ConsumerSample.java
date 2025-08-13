@@ -1,4 +1,4 @@
-package com.wxy.study.consumer;
+package com.cjree.study.consumer;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;

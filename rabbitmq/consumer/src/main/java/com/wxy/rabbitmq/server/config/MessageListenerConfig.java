@@ -1,7 +1,7 @@
-package com.wxy.rabbitmq.server.config;
+package com.cjree.rabbitmq.server.config;
 
 
-import com.wxy.rabbitmq.server.receiver.MyAckReceiver;
+import com.cjree.rabbitmq.server.receiver.MyAckReceiver;
 import org.springframework.amqp.core.AcknowledgeMode;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;

@@ -1,4 +1,4 @@
-package com.wxy.shardingjdbc;
+package com.cjree.shardingjdbc;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;

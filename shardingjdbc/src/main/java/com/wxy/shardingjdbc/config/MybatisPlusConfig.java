@@ -1,4 +1,4 @@
-package com.wxy.shardingjdbc.config;
+package com.cjree.shardingjdbc.config;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.autoconfigure.ConfigurationCustomizer;

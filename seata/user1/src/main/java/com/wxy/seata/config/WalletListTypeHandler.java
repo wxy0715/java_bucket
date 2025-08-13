@@ -1,7 +1,7 @@
-package com.wxy.seata.config;
+package com.cjree.seata.config;
 
 import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
-import com.wxy.seata.entity.Wallet;
+import com.cjree.seata.entity.Wallet;
 
 import java.io.IOException;
 import java.util.List;

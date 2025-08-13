@@ -1,4 +1,4 @@
-package com.wxy.study;
+package com.cjree.study;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

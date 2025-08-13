@@ -1,4 +1,4 @@
-package com.wxy.netty.source.echo;
+package com.cjree.netty.source.echo;
 
 public class Test {
     public static void main(String[] args) throws Exception {

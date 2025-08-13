@@ -1,4 +1,4 @@
-package com.wxy.ftpClient;
+package com.cjree.ftpClient;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

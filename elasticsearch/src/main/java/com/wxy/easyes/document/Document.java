@@ -1,4 +1,4 @@
-package com.wxy.easyes.document;
+package com.cjree.easyes.document;
 
 import lombok.Data;
 import org.dromara.easyes.annotation.HighLight;

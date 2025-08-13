@@ -1,4 +1,4 @@
-package com.wxy.seata1;
+package com.cjree.seata1;
 
 import io.seata.spring.annotation.datasource.EnableAutoDataSourceProxy;
 import org.springframework.boot.SpringApplication;

@@ -1,4 +1,4 @@
-package com.wxy.netty.buf;
+package com.cjree.netty.buf;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;

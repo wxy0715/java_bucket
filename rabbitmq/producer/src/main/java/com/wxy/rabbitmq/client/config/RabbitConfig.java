@@ -1,4 +1,4 @@
-package com.wxy.rabbitmq.client.config;
+package com.cjree.rabbitmq.client.config;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.connection.CorrelationData;

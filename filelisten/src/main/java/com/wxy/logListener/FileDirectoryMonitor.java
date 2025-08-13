@@ -1,4 +1,4 @@
-package com.wxy.logListener;
+package com.cjree.logListener;
 
 import org.apache.commons.io.filefilter.FileFilterUtils;
 import org.apache.commons.io.monitor.FileAlterationMonitor;

@@ -1,4 +1,4 @@
-package com.wxy.seata1.entity;
+package com.cjree.seata1.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

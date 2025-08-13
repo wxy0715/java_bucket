@@ -1,6 +1,6 @@
-package com.wxy;
-import com.wxy.logListener.LoadLogDirectoryRunable;
-import com.wxy.logListener.db.LogContentQueueService;
+package com.cjree;
+import com.cjree.logListener.LoadLogDirectoryRunable;
+import com.cjree.logListener.db.LogContentQueueService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;

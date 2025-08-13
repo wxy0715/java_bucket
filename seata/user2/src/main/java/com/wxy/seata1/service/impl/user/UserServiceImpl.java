@@ -1,10 +1,10 @@
-package com.wxy.seata1.service.impl.user;
+package com.cjree.seata1.service.impl.user;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.wxy.seata1.entity.User;
-import com.wxy.seata1.enums.AgeEnum;
-import com.wxy.seata1.mapper.UserMapper;
-import com.wxy.seata1.service.api.IUserService;
+import com.cjree.seata1.entity.User;
+import com.cjree.seata1.enums.AgeEnum;
+import com.cjree.seata1.mapper.UserMapper;
+import com.cjree.seata1.service.api.IUserService;
 import io.seata.core.context.RootContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,6 +1,6 @@
-package com.wxy.mongo.dao;
+package com.cjree.mongo.dao;
 
-import com.wxy.mongo.entity.Account;
+import com.cjree.mongo.entity.Account;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;

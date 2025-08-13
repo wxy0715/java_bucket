@@ -1,4 +1,4 @@
-package com.wxy.ftpClient;
+package com.cjree.ftpClient;
 
 import org.apache.commons.net.ftp.*;
 import org.slf4j.Logger;

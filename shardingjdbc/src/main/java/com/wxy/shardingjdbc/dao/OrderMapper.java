@@ -1,7 +1,7 @@
-package com.wxy.shardingjdbc.dao;
+package com.cjree.shardingjdbc.dao;
 
-import com.wxy.shardingjdbc.model.Order;
-import com.wxy.shardingjdbc.model.OrderExample;
+import com.cjree.shardingjdbc.model.Order;
+import com.cjree.shardingjdbc.model.OrderExample;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;

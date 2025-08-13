@@ -1,4 +1,4 @@
-package com.wxy.seata1.entity;
+package com.cjree.seata1.entity;
 
 import java.io.Serializable;
 import java.util.List;
@@ -10,8 +10,8 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.Version;
 import com.baomidou.mybatisplus.extension.handlers.FastjsonTypeHandler;
 import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
-import com.wxy.seata1.enums.AgeEnum;
-import com.wxy.seata1.enums.SexEnum;
+import com.cjree.seata1.enums.AgeEnum;
+import com.cjree.seata1.enums.SexEnum;
 import lombok.Data;
 import lombok.experimental.Accessors;
 

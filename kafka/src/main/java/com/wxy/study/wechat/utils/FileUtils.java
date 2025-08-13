@@ -1,4 +1,4 @@
-package com.wxy.study.wechat.utils;
+package com.cjree.study.wechat.utils;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;

@@ -1,4 +1,4 @@
-package com.wxy.rabbitmq.client.controller;
+package com.cjree.rabbitmq.client.controller;
 
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.FanoutExchange;

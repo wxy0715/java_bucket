@@ -1,4 +1,4 @@
-package com.wxy.seata.config;
+package com.cjree.seata.config;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.autoconfigure.ConfigurationCustomizer;

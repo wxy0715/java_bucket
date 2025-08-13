@@ -192,7 +192,7 @@ ribbon:
 @EnableAspectJAutoProxy(exposeProxy = true)
 @EnableAutoDataSourceProxy  // seata生效注解 默认AT模式
 @EnableFeignClients(basePackages = {
-        "com.wxy.seata.api",
+        "com.cjree.seata.api",
 })  // feign获取user2模块
 public class SeataApplication {
     public static void main(String[] args) {

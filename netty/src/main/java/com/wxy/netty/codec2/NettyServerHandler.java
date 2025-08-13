@@ -1,4 +1,4 @@
-package com.wxy.netty.codec2;
+package com.cjree.netty.codec2;
 
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;

@@ -1,4 +1,4 @@
-package com.wxy.seata.entity;
+package com.cjree.seata.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.alibaba.fastjson.serializer.SerializerFeature;
@@ -8,8 +8,8 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.Version;
 import com.baomidou.mybatisplus.extension.handlers.FastjsonTypeHandler;
 import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
-import com.wxy.seata.enums.AgeEnum;
-import com.wxy.seata.enums.SexEnum;
+import com.cjree.seata.enums.AgeEnum;
+import com.cjree.seata.enums.SexEnum;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.checkerframework.checker.units.qual.A;

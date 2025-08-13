@@ -1,12 +1,12 @@
-package com.wxy.seata.service.impl.user;
+package com.cjree.seata.service.impl.user;
 
-import com.wxy.seata.api.IUserTestController;
-import com.wxy.seata.entity.User;
-import com.wxy.seata.enums.AgeEnum;
-import com.wxy.seata.mapper.UserMapper;
-import com.wxy.seata.service.api.IUserService;
+import com.cjree.seata.api.IUserTestController;
+import com.cjree.seata.entity.User;
+import com.cjree.seata.enums.AgeEnum;
+import com.cjree.seata.mapper.UserMapper;
+import com.cjree.seata.service.api.IUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.wxy.utils.spring.SpringUtils;
+import com.cjree.utils.spring.SpringUtils;
 import io.seata.core.context.RootContext;
 import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.slf4j.Slf4j;

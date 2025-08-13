@@ -1,6 +1,6 @@
-package com.wxy.easyes.esmapper;
+package com.cjree.easyes.esmapper;
 
-import com.wxy.easyes.document.Document;
+import com.cjree.easyes.document.Document;
 import org.dromara.easyes.core.conditions.select.LambdaEsQueryWrapper;
 import org.dromara.easyes.core.core.EsWrappers;
 import org.elasticsearch.action.search.SearchResponse;

@@ -1,4 +1,4 @@
-package com.wxy.seata1.config;
+package com.cjree.seata1.config;
 
 import org.apache.ibatis.mapping.DatabaseIdProvider;
 import org.apache.ibatis.mapping.VendorDatabaseIdProvider;

@@ -1,4 +1,4 @@
-package com.wxy.netty.dubborpc.netty;
+package com.cjree.netty.dubborpc.netty;
 
 
 import io.netty.bootstrap.Bootstrap;

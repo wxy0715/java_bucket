@@ -1,11 +1,11 @@
-package com.wxy.mongo.controller;
+package com.cjree.mongo.controller;
 
 
 import cn.hutool.core.lang.Snowflake;
 import cn.hutool.core.thread.ThreadUtil;
 import com.mongodb.client.result.UpdateResult;
-import com.wxy.mongo.dao.AccountDao;
-import com.wxy.mongo.entity.Account;
+import com.cjree.mongo.dao.AccountDao;
+import com.cjree.mongo.entity.Account;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.mongodb.core.MongoTemplate;

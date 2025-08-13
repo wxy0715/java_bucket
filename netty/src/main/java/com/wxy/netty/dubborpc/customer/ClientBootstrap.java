@@ -1,7 +1,7 @@
-package com.wxy.netty.dubborpc.customer;
+package com.cjree.netty.dubborpc.customer;
 
-import com.wxy.netty.dubborpc.netty.NettyClient;
-import com.wxy.netty.dubborpc.publicinterface.HelloService;
+import com.cjree.netty.dubborpc.netty.NettyClient;
+import com.cjree.netty.dubborpc.publicinterface.HelloService;
 
 public class ClientBootstrap {
     //这里定义协议头

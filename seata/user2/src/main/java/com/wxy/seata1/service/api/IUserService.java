@@ -1,7 +1,7 @@
-package com.wxy.seata1.service.api;
+package com.cjree.seata1.service.api;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.wxy.seata1.entity.User;
+import com.cjree.seata1.entity.User;
 
 /**
  * <p>

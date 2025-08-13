@@ -1,4 +1,4 @@
-package com.wxy.proxy;/*
+package com.cjree.proxy;/*
 Java FTP Proxy Server 1.3.0
 Copyright (C) 1998-2014 Christian Schmidt
 

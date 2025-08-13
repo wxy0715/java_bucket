@@ -1,4 +1,4 @@
-package com.wxy.netty.protocoltcp;
+package com.cjree.netty.protocoltcp;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;

@@ -1,12 +1,12 @@
-package com.wxy.study.wechat.controller;
+package com.cjree.study.wechat.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Maps;
-import com.wxy.study.wechat.common.BaseResponseVO;
-import com.wxy.study.wechat.conf.WechatTemplateProperties;
-import com.wxy.study.wechat.service.WechatTemplateService;
-import com.wxy.study.wechat.utils.FileUtils;
+import com.cjree.study.wechat.common.BaseResponseVO;
+import com.cjree.study.wechat.conf.WechatTemplateProperties;
+import com.cjree.study.wechat.service.WechatTemplateService;
+import com.cjree.study.wechat.utils.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

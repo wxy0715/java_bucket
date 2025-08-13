@@ -1,7 +1,7 @@
-package com.wxy.netty.dubborpc.provider;
+package com.cjree.netty.dubborpc.provider;
 
 
-import com.wxy.netty.dubborpc.publicinterface.HelloService;
+import com.cjree.netty.dubborpc.publicinterface.HelloService;
 
 public class HelloServiceImpl implements HelloService {
 

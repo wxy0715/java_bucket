@@ -1,4 +1,4 @@
-package com.wxy.seata.entity;
+package com.cjree.seata.entity;
 
 import java.util.List;
 

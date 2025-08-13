@@ -1,4 +1,4 @@
-package com.wxy.proxy;/*
+package com.cjree.proxy;/*
 Copyright (C) 1998-2014 Christian Schmidt
 
 This program is free software; you can redistribute it and/or

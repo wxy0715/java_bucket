@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package com.wxy.netty.source.echo2;
+package com.cjree.netty.source.echo2;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;

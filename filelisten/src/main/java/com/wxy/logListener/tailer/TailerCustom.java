@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.wxy.logListener.tailer;
+package com.cjree.logListener.tailer;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;

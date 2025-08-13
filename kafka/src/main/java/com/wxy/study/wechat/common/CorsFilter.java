@@ -1,4 +1,4 @@
-package com.wxy.study.wechat.common;
+package com.cjree.study.wechat.common;
 
 import org.springframework.context.annotation.Configuration;
 

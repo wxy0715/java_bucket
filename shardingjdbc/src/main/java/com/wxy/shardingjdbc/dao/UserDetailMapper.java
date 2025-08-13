@@ -1,8 +1,8 @@
-package com.wxy.shardingjdbc.dao;
+package com.cjree.shardingjdbc.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.wxy.shardingjdbc.model.User;
-import com.wxy.shardingjdbc.model.UserDetail;
+import com.cjree.shardingjdbc.model.User;
+import com.cjree.shardingjdbc.model.UserDetail;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

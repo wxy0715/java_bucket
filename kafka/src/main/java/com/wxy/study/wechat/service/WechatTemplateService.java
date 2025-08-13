@@ -1,8 +1,8 @@
-package com.wxy.study.wechat.service;
+package com.cjree.study.wechat.service;
 
 
 import com.alibaba.fastjson.JSONObject;
-import com.wxy.study.wechat.conf.WechatTemplateProperties;
+import com.cjree.study.wechat.conf.WechatTemplateProperties;
 
 
 public interface WechatTemplateService {

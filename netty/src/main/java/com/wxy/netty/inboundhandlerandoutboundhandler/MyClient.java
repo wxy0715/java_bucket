@@ -1,4 +1,4 @@
-package com.wxy.netty.inboundhandlerandoutboundhandler;
+package com.cjree.netty.inboundhandlerandoutboundhandler;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;

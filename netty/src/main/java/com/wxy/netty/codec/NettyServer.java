@@ -1,4 +1,4 @@
-package com.wxy.netty.codec;
+package com.cjree.netty.codec;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;

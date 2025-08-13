@@ -1,4 +1,4 @@
-package com.wxy.rabbitmq.server.receiver;
+package com.cjree.rabbitmq.server.receiver;
 
 import com.rabbitmq.client.Channel;
 import org.springframework.amqp.core.Message;

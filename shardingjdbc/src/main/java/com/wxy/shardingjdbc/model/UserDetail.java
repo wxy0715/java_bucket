@@ -1,4 +1,4 @@
-package com.wxy.shardingjdbc.model;
+package com.cjree.shardingjdbc.model;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;

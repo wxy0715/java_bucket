@@ -351,20 +351,21 @@ spring.shardingsphere.rules.readwrite-splitting.load-balancers.round_robin.type=
 ```
 
 ```java
+
 @Test
-public void testReadWrite_read(){
-  for (int i = 0; i < 10; i++) {
-    com.wxy.shardingjdbc.model.Test test = testMapper.selectByPrimaryKey(1);
-    System.out.println(JSON.toJSONString(test));
-  }
+public void testReadWrite_read() {
+    for (int i = 0; i < 10; i++) {
+        com.cjree.shardingjdbc.model.Test test = testMapper.selectByPrimaryKey(1);
+        System.out.println(JSON.toJSONString(test));
+    }
 }
 
 @Test
-public void testReadWrite_write(){
-  com.wxy.shardingjdbc.model.Test test = new com.wxy.shardingjdbc.model.Test();
-  test.setName("1");
-  test.setShadow(0);
-  testMapper.insert(test);
+public void testReadWrite_write() {
+    com.cjree.shardingjdbc.model.Test test = new com.cjree.shardingjdbc.model.Test();
+    test.setName("1");
+    test.setShadow(0);
+    testMapper.insert(test);
 }
 ```
 
@@ -414,12 +415,12 @@ spring.shardingsphere.props.query-with-cipher-column=true
 ```java
 // 加密插入
 @Test
-public void encryptInsert(){
-  com.wxy.shardingjdbc.model.Test test = new com.wxy.shardingjdbc.model.Test();
-  test.setName("1");
-  test.setShadow(0);
-  test.setNameEncrypt("1");
-  testMapper.insertSelective(test);
+public void encryptInsert() {
+    com.cjree.shardingjdbc.model.Test test = new com.cjree.shardingjdbc.model.Test();
+    test.setName("1");
+    test.setShadow(0);
+    test.setNameEncrypt("1");
+    testMapper.insertSelective(test);
 }
 ```
 
@@ -428,9 +429,9 @@ public void encryptInsert(){
 ```java
 // 解密读取
 @Test
-public void encryptSelect(){
-  com.wxy.shardingjdbc.model.Test test = testMapper.selectByPrimaryKey(1);
-  System.out.println(JSON.toJSONString(test));
+public void encryptSelect() {
+    com.cjree.shardingjdbc.model.Test test = testMapper.selectByPrimaryKey(1);
+    System.out.println(JSON.toJSONString(test));
 }
 ```
 
@@ -495,22 +496,24 @@ spring.shardingsphere.rules.shadow.shadow-algorithms.user-id-select-match-algori
 ```
 
 ```java
+
 @Test
-public void select(){
-  TestExample testExample = new TestExample();
-  testExample.createCriteria().andShadowEqualTo(1);
-  List<com.wxy.shardingjdbc.model.Test> tests = testMapper.selectByExample(testExample);
-  System.out.println(JSON.toJSONString(tests));
+public void select() {
+    TestExample testExample = new TestExample();
+    testExample.createCriteria().andShadowEqualTo(1);
+    List<com.cjree.shardingjdbc.model.Test> tests = testMapper.selectByExample(testExample);
+    System.out.println(JSON.toJSONString(tests));
 }
 
 @Test
-public void insert(){
-  com.wxy.shardingjdbc.model.Test test = new com.wxy.shardingjdbc.model.Test();
-  test.setName("1");
-  test.setShadow(0);
-  test.setNameEncrypt("1");
-  testMapper.insertSelective(test);
+public void insert() {
+    com.cjree.shardingjdbc.model.Test test = new com.cjree.shardingjdbc.model.Test();
+    test.setName("1");
+    test.setShadow(0);
+    test.setNameEncrypt("1");
+    testMapper.insertSelective(test);
 }
+
 以上测试shadow为1的都会在影子库里为0的都在生产库里
 ```
 

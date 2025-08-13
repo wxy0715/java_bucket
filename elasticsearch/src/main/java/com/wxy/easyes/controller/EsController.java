@@ -1,7 +1,7 @@
-package com.wxy.easyes.controller;
+package com.cjree.easyes.controller;
 
-import com.wxy.easyes.document.Document;
-import com.wxy.easyes.esmapper.DocumentMapper;
+import com.cjree.easyes.document.Document;
+import com.cjree.easyes.esmapper.DocumentMapper;
 import lombok.RequiredArgsConstructor;
 import org.dromara.easyes.core.conditions.select.LambdaEsQueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;

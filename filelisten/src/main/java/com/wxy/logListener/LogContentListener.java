@@ -1,8 +1,8 @@
-package com.wxy.logListener;
+package com.cjree.logListener;
 
-import com.wxy.logListener.db.LogContentQueueService;
-import com.wxy.logListener.tailer.TailerCustom;
-import com.wxy.logListener.tailer.TailerListenerAdapter;
+import com.cjree.logListener.db.LogContentQueueService;
+import com.cjree.logListener.tailer.TailerCustom;
+import com.cjree.logListener.tailer.TailerListenerAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

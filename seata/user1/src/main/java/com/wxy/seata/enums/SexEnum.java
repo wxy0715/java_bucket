@@ -1,4 +1,4 @@
-package com.wxy.seata.enums;
+package com.cjree.seata.enums;
 
 import com.baomidou.mybatisplus.annotation.IEnum;
 import com.fasterxml.jackson.annotation.JsonValue;

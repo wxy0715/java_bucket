@@ -1,4 +1,4 @@
-package com.wxy.ftpClient;
+package com.cjree.ftpClient;
 
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPClientConfig;

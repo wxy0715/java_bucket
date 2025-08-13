@@ -1,4 +1,4 @@
-package com.wxy.shardingjdbc.model;
+package com.cjree.shardingjdbc.model;
 
 public class Test {
     /**

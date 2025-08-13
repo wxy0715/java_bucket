@@ -1,4 +1,4 @@
-package com.wxy.study.wechat.conf;
+package com.cjree.study.wechat.conf;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

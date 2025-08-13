@@ -1,8 +1,8 @@
-package com.wxy.seata.controller;
+package com.cjree.seata.controller;
 
-import com.wxy.seata.entity.User;
-import com.wxy.seata.mapper.UserMapper;
-import com.wxy.seata.service.api.IUserService;
+import com.cjree.seata.entity.User;
+import com.cjree.seata.mapper.UserMapper;
+import com.cjree.seata.service.api.IUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;

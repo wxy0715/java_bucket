@@ -1,4 +1,4 @@
-package com.wxy.mongo.entity;
+package com.cjree.mongo.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

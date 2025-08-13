@@ -1,4 +1,4 @@
-package com.wxy.netty.protocoltcp;
+package com.cjree.netty.protocoltcp;
 
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;

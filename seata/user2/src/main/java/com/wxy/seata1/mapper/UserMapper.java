@@ -1,6 +1,6 @@
-package com.wxy.seata1.mapper;
+package com.cjree.seata1.mapper;
 
-import com.wxy.seata1.entity.User;
+import com.cjree.seata1.entity.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

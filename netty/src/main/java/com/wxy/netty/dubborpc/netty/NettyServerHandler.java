@@ -1,7 +1,7 @@
-package com.wxy.netty.dubborpc.netty;
+package com.cjree.netty.dubborpc.netty;
 
-import com.wxy.netty.dubborpc.customer.ClientBootstrap;
-import com.wxy.netty.dubborpc.provider.HelloServiceImpl;
+import com.cjree.netty.dubborpc.customer.ClientBootstrap;
+import com.cjree.netty.dubborpc.provider.HelloServiceImpl;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 

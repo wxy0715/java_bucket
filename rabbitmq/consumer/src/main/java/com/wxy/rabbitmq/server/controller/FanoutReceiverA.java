@@ -1,4 +1,4 @@
-package com.wxy.rabbitmq.server.controller;
+package com.cjree.rabbitmq.server.controller;
 
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;

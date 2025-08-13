@@ -1,4 +1,4 @@
-package com.wxy.netty.inboundhandlerandoutboundhandler;
+package com.cjree.netty.inboundhandlerandoutboundhandler;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;

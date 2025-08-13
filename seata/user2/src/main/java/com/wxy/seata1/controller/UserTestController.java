@@ -1,7 +1,7 @@
-package com.wxy.seata1.controller;
+package com.cjree.seata1.controller;
 
-import com.wxy.seata1.service.api.IUserService;
-import com.wxy.seata.api.IUserTestController;
+import com.cjree.seata1.service.api.IUserService;
+import com.cjree.seata.api.IUserTestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
