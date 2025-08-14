@@ -2,16 +2,9 @@ package com.cjree.mongo.controller;
 
 
 import cn.hutool.core.lang.Snowflake;
-import cn.hutool.core.thread.ThreadUtil;
-import com.mongodb.client.result.UpdateResult;
 import com.cjree.mongo.dao.AccountDao;
 import com.cjree.mongo.entity.Account;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.util.StopWatch;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

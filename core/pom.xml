@@ -82,7 +82,8 @@
 		<!--jdframe-->
 		<jdframe.version>0.0.2</jdframe.version>
 		<!--es-->
-		<easy-es.version>3.0.0</easy-es.version>
+		<easy-es.version>2.0.0-beta7</easy-es.version>
+		<elasticsearch.version>7.14.0</elasticsearch.version>
 		<!--sh-->
 		<jsch.version>0.1.55</jsch.version>
 		<!--SSH协议工具-->
@@ -316,6 +317,17 @@
 				<artifactId>easy-es-boot-starter</artifactId>
 				<version>${easy-es.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>org.elasticsearch.client</groupId>
+				<artifactId>elasticsearch-rest-high-level-client</artifactId>
+				<version>${elasticsearch.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.elasticsearch</groupId>
+				<artifactId>elasticsearch</artifactId>
+				<version>${elasticsearch.version}</version>
+			</dependency>
+
 
 			<!--****************************以下是项目模块的版本依赖管理***************************************-->
 			<dependency>

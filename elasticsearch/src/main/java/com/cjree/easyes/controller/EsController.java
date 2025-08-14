@@ -4,13 +4,12 @@ import com.cjree.easyes.document.Document;
 import com.cjree.easyes.esmapper.DocumentMapper;
 import jakarta.annotation.Resource;
 import org.dromara.easyes.core.conditions.select.LambdaEsQueryWrapper;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-
 
 /**
  * es操作
@@ -18,95 +17,64 @@ import java.util.List;
 @RestController
 public class EsController {
     @Resource
-    DocumentMapper documentMapper;
+    private DocumentMapper documentMapper;
 
     /**
-     * 查询(指定)
-     *
-     * @param title 标题
+     * 初始化插入数据,默认开启自动挡,自动挡模式下,索引会自动创建及更新. 若未开启自动挡,则在此步骤前需先调用创建索引API完成索引创建
      */
-    @GetMapping("/select")
-    public Document select(String title) {
-        LambdaEsQueryWrapper<Document> wrapper = new LambdaEsQueryWrapper<>();
-        wrapper.eq(Document::getTitle, title);
-        return documentMapper.selectOne(wrapper);
-    }
-
-    /**
-     * 搜索(模糊)
-     *
-     * @param key 搜索关键字
-     */
-    @GetMapping("/search")
-    public List<Document> search(String key) {
-        LambdaEsQueryWrapper<Document> wrapper = new LambdaEsQueryWrapper<>();
-        wrapper.like(Document::getTitle, key);
-        return documentMapper.selectList(wrapper);
-    }
-
-    /**
-     * 插入
-     */
-    @PostMapping("/insert")
-    public Integer insert(@RequestBody Document document) {
+    @GetMapping("insert")
+    public Integer insert() {
+        Document document = new Document();
+        document.setId("11");
+        document.setTitle("测试1");
+        document.setContent("测试内容1");
+        document.setGmtCreate(new Date());
         return documentMapper.insert(document);
     }
 
     /**
-     * 插入
-     */
-    @PostMapping("/insertTest")
-    public Integer insertTest() {
-        List<Document> documents = generateDocuments(100);
-        return documentMapper.insertBatch(documents);
-    }
-
-    public static List<Document> generateDocuments(int count) {
-        List<Document> documents = new ArrayList<>(count);
-        for (int i = 0; i < count; i++) {
-            Document document = new Document();
-            document.setId((long) i);
-            document.setMoney(BigDecimal.valueOf(Math.random() * 1000));
-            document.setType((int) (Math.random() * 10));
-            document.setTitle("Title " + i);
-            document.setContent("Content " + i);
-            document.setHighlightContent("Highlight Content " + i);
-            document.setScope((float) (Math.random() * 100));
-            document.setIpAddress("192.168.0." + (i % 255));
-
-            documents.add(document);
-        }
-        return documents;
-    }
-
-    /**
-     * 更新
-     */
-    @PutMapping("/update")
-    public Integer update(@RequestBody Document document) {
-        // 测试更新 更新有两种情况 分别演示如下:
-        // case1: 已知id, 根据id更新 (为了演示方便,此id是从上一步查询中复制过来的,实际业务可以自行查询)
-        return documentMapper.updateById(document);
-
-        // case2: id未知, 根据条件更新
-//        LambdaEsUpdateWrapper<Document> wrapper = new LambdaEsUpdateWrapper<>();
-//        wrapper.like(Document::getTitle, document.getTitle());
-//        Document document2 = new Document();
-//        document2.setTitle(document.getTitle());
-//        document2.setContent(document.getContent());
-//        documentMapper.update(document2, wrapper);
-
-    }
-
-    /**
-     * 删除
+     * 演示根据标题精确查询文章
+     * 例如title传值为 我真帅,那么在当前配置的索引下,所有标题为'我真帅'的文章都会被查询出来
+     * 其它各种场景的查询使用,请移步至test模块
      *
-     * @param id 主键
+     * @param title
+     * @return
      */
-    @DeleteMapping("/delete/{id}")
-    public Integer delete(@PathVariable String id) {
-        // 测试删除数据 删除有两种情况:根据id删或根据条件删
-        return documentMapper.deleteById(id);
+    @GetMapping("/listDocumentByTitle")
+    public List<Document> listDocumentByTitle(@RequestParam(name = "title") String title) {
+        // 实际开发中会把这些逻辑写进service层 这里为了演示方便就不创建service层了
+        LambdaEsQueryWrapper<Document> wrapper = new LambdaEsQueryWrapper<>();
+        wrapper.eq(Document::getTitle, title);
+        return documentMapper.selectList(wrapper);
+    }
+
+
+    /**
+     * 演示根据title删除文章，同时会被 DeleteInterceptor 拦截，执行逻辑删除
+     *
+     * @param title
+     * @return
+     */
+    @GetMapping("/deleteDocumentByTitle")
+    public Integer deleteDocumentByTitle(@RequestParam(name = "title") String title) {
+        // 实际开发中会把这些逻辑写进service层 这里为了演示方便就不创建service层了
+        LambdaEsQueryWrapper<Document> wrapper = new LambdaEsQueryWrapper<>();
+        wrapper.eq(Document::getTitle, title);
+        return documentMapper.delete(wrapper);
+    }
+
+    /**
+     * 自定义注解指定高亮返回字段,高亮查询测试
+     *
+     * @param content
+     * @return
+     */
+    @GetMapping("/highlightSearch")
+    public List<Document> highlightSearch(@RequestParam(name = "content") String content) {
+        // 实际开发中会把这些逻辑写进service层 这里为了演示方便就不创建service层了
+        LambdaEsQueryWrapper<Document> wrapper = new LambdaEsQueryWrapper<>();
+        wrapper.match(Document::getContent, content);
+        return documentMapper.selectList(wrapper);
     }
 
 }

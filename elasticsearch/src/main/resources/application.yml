@@ -102,6 +102,7 @@ easy-es:
     # 分布式环境下,平滑模式,当前客户端激活最新索引最大重试次数 分布式环境下,平滑模式,当前客户端激活最新索引重试时间间隔 若您期望最终一致性的时效性更高,可调小此值,但会牺牲一些性能
     active-release-index-fixed-delay: 60
     db-config:
+      index-prefix: jdk17_
       # 是否开启下划线转驼峰 默认为false
       map-underscore-to-camel-case: true
       # id生成策略 customize为自定义,id值由用户生成,比如取MySQL中的数据id,如缺省此项配置,则id默认策略为es自动生成
