@@ -94,6 +94,12 @@
 		<oshi-core.version>4.2.0</oshi-core.version>
 		<!--commons-net-->
 		<commons-net.version>3.6</commons-net.version>
+		<!--canal-->
+		<canal.version>1.1.0</canal.version>
+		<!--seata-->
+		<seata.version>2.5.0</seata.version>
+		<!--shardingsphere-->
+		<shardingsphere.version>5.2.0</shardingsphere.version>
 	</properties>
 
 	<!-- 依赖声明 -->
@@ -120,6 +126,27 @@
 				<version>${spring.cloud.alibaba.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
+			</dependency>
+
+			<!--shardingsphere-->
+			<dependency>
+				<groupId>org.apache.shardingsphere</groupId>
+				<artifactId>shardingsphere-jdbc-core-spring-boot-starter</artifactId>
+				<version>${shardingsphere.version}</version>
+			</dependency>
+
+			<!--seata-->
+			<dependency>
+				<groupId>org.apache.seata</groupId>
+				<artifactId>seata-all</artifactId>
+				<version>${seata.version}</version>
+			</dependency>
+
+			<!--canal-->
+			<dependency>
+				<groupId>com.alibaba.otter</groupId>
+				<artifactId>canal.client</artifactId>
+				<version>${canal.version}</version>
 			</dependency>
 
 			<!--swagger-->
