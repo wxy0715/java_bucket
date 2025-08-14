@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="false" scanPeriod="60 second" debug="true">
+    <property name="CONSOLE_ENCODING" value="${console.encoding:-UTF-8}"/>
+    <!-- 负责写日志,控制台日志 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- 一是把日志信息转换成字节数组,二是把字节数组写入到输出流 -->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>${STDOUT_LOG_LEVEL}</level>
+        </filter>
+        <encoder>
+            <pattern>%highlight(%d{HH:mm:ss.SSS} %5level %50logger{50} [%X{traceId}-%X{spanId}] [%thread-%X{threadId}] : %m%n)</pattern>
+            <charset>${CONSOLE_ENCODING}</charset>
+        </encoder>
+    </appender>
+
+    <springProperty scope="context" name="appName" source="spring.application.name"/>
+    <!-- 负责写ELK日志-->
+    <appender name="logstash" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+        <param name="Encoding" value="UTF-8"/>
+        <destination>${LOGSTASH_HOST:-192.168.10.101}:${LOGSTASH_PORT:-4560}</destination>
+        <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder" >
+            <customFields>{"appname":"${appName}"}</customFields>
+        </encoder>
+    </appender>
+
+
+    <root level="${LOG_LEVEL:-INFO}">
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="logstash" />
+    </root>
+</configuration>
