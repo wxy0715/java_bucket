@@ -3,9 +3,7 @@
 ## 更新纪要
 | 更新时间 | 更新内容 | 备注              |
 | --- | --- |-----------------|
-| 2025-08-12 | 增加jdframe框架,文件上传文档 | 操作集合框架,代替stream |
-| 2025-08-12 | RID与TraceId合并，统一为traceId |                 |
-| 2025-07-15 | jdk1.8升级为jdk17 | 详见[使用说明](#使用说明) |
+| 2025-08-14 | jdk1.8升级为jdk17 | 详见[使用说明](#使用说明) |
 
 ## 版本说明
 ### 1.概述
@@ -26,10 +24,10 @@
 
 
 ### 2.架构示意图
-![](http://git.seaskysh.com.cn:8800/java/core-jdk17/-/raw/main/image.png)
 
 
-### 3.模块说明
+
+### 3.基础模块说明
 **模块定位**
 
 + 💚 **核心模块**：系统基础框架与微服务核心。
@@ -95,9 +93,46 @@
     - `ofdrw-converter`：OFD 文件转换
 + **用途**：支持文件上传/下载、格式转换（PDF/Word/Excel/OFD）、文档内容提取。
 
+##### **3.8 core-rabbitmq**
 
++ **功能**：rabbitmq消息队列
++ **定位**：外围模块
++ **主要依赖**： 
+  - `spring-boot-starter-amqp`：ampq消息
++ **用途**：消息队列。
 
-### 4.组件清单
+##### **3.9 core-elasticsearch**
+
++ **功能**：文档搜素
++ **定位**：外围模块
++ **主要依赖**： 
+  - `easy-es`：简化es的操作
+
+##### **3.10 core-canal**
+
++ **功能**：binlog读取,数据同步
++ **定位**：外围模块
++ **主要依赖**： 
+  - `canal.client`：操作canal类
+
+### 4.集成中间件示例
+
+| 介绍                | 模块            |
+| ------------------- | --------------- |
+| binlog监听处理      | `canal`         |
+| windows+linux改密   | `changePwd`     |
+| ElasticSearch       | `elasticsearch` |
+| ftp服务及客户端代理 | `ftpProxy`      |
+| kafka               | `kafka`         |
+| mongo封装           | `mongo`         |
+| 通信框架            | `netty`         |
+| 消息中间件          | `rabbitmq`      |
+| 分布式事务          | `seata`         |
+| 分库分表(todo)      | `shardingjdbc`  |
+| 定时服务(todo)      | `xxl-job`       |
+
+### 5.组件版本清单
+
 | 依赖包 groupId | 依赖包 artifactId | 版本 | 备注 |
 | --- | --- | --- | --- |
 | **core-basic** | | | |
@@ -108,14 +143,10 @@
 | org.springframework.boot | spring-boot-actuator | 3.3.12 | Spring Boot监控管理端点，暴露应用健康信息/性能指标。 |
 | org.springframework.boot | spring-boot-actuator-autoconfigure | 3.3.12 | Actuator自动配置模块，提供监控组件的默认配置支持。 |
 | jakarta.mail | jakarta.mail-api | - | Jakarta邮件服务标准API，用于发送和接收邮件。 |
-| commons-codec | commons-codec | - | 编解码工具库，支持Base64/MD5/SHA等常用编码算法。 |
-| org.apache.httpcomponents | httpcore | - | HTTP协议核心实现，提供底层HTTP报文处理能力。 |
-| org.apache.httpcomponents.client5 | httpclient5 | - | HTTP客户端库5.x版本，支持HTTP/1.1和HTTP/2协议。 |
+| commons-codec | commons-codec | 1.16.1 | 编解码工具库，支持Base64/MD5/SHA等常用编码算法。 |
+| commons-net | commons-net | 3.6 | 简化各种常见网络协议的编程实现 |
 | org.apache.commons | commons-fileupload2-jakarta-servlet6 | 2.0.0-M3 | Jakarta Servlet 6.0规范的文件上传组件实现。 |
 | ma.glasnost.orika | orika-core | 1.5.4 | 高性能对象映射框架，简化POJO间属性拷贝。 |
-| org.apache.shiro | shiro-spring | 2.0.3 | 集成Spring的Apache Shiro安全框架，提供认证授权功能。 |
-| org.apache.shiro | shiro-core | 2.0.3 | Shiro安全框架核心库，包含认证/授权/会话管理。 |
-| org.apache.shiro | shiro-web | 2.0.3 | Shiro的Web支持模块，提供Servlet过滤器等Web集成。 |
 | com.github.xiaoymin | knife4j-openapi3-jakarta-spring-boot-starter | 4.5.0 | Swagger增强UI工具，生成可视化API文档界面。 |
 | com.baomidou | mybatis-plus-spring-boot3-starter | 3.5.12 | MyBatis增强框架与Spring Boot3整合的启动器。 |
 | com.baomidou | mybatis-plus-generator | 3.5.12 | MyBatis代码生成器，自动生成实体类/Mapper/Service。 |
@@ -133,6 +164,12 @@
 | com.sun.xml.bind | jaxb-impl | 2.3.3 | JAXB标准的参考实现库，提供XML绑定具体功能。 |
 | org.springframework.boot | spring-boot-starter-test | 3.3.12 | 测试支持库，包含JUnit/Mockito/SpringTest等测试工具。 |
 | org.junit.jupiter | junit-jupiter-engine | - | JUnit5测试引擎，提供新一代单元测试运行支持。 |
+| com.alibaba | transmittable-thread-local | 2.14.4 | 增强的threadlocal |
+| com.github.oshi | oshi-core | 4.2.0 | 系统信息 |
+| org.graylog2 | syslog | 0.9.60 | syslog |
+| ch.ethz.ganymed | ganymed-ssh2 | build210 | SSH协议工具 |
+| com.jcraft | jsch | 0.1.55 | 协议操作类 |
+| io.github.burukeyou | jdframe | 0.0.2 | 集合操作类 |
 | **core-cloud** | | | |
 | com.cjree | core-cache | - | 内部模块，详见模块说明。 |
 | com.alibaba.cloud | spring-cloud-starter-alibaba-nacos-config | 2023.0.1.0 | Nacos分布式配置中心客户端，实现配置动态更新。 |
@@ -145,7 +182,11 @@
 | org.aspectj | aspectjweaver | - | AOP切面编程支持库，提供运行时切面织入能力。 |
 | org.apache.commons | commons-lang3 | - | Apache通用语言工具包，扩展Java基础类库功能。 |
 | org.springframework.boot | spring-boot-starter-test | 3.3.12 | 测试支持库，包含JUnit/Mockito/SpringTest等测试工具。 |
-| org.junit.jupiter | junit-jupiter-engine | - | JUnit5测试引擎，提供新一代单元测试运行支持。 |
+| org.junit.jupiter | junit-jupiter- | - | JUnit5测试引擎，提供新一代单元测试运行支持。 |
+| **core-elasticsearch** |  |  |  |
+| org.dromara.easy-es | easy-es | 2.0.0-beta7 | 操作es |
+| org.elasticsearch | elasticsearch | 7.14.0 | 操作es |
+| org.elasticsearch.client | elasticsearch-rest-high-level-client | 7.14.0 | 操作es |
 | **core-facade** | | | |
 | com.cjree | core-model | - | 内部模块，详见模块说明。 |
 | org.springframework.boot | spring-boot-starter-web | 3.3.12 | Web应用快速开发模块，集成Tomcat/Spring MVC等组件。 |
@@ -160,8 +201,6 @@
 | **core-cache** | | | |
 | com.cjree | core-common | - | 内部模块，详见模块说明。 |
 | org.springframework.boot | spring-boot-starter-data-redis | 3.3.12 | Redis数据访问支持，提供连接池和模板化操作接口。 |
-| org.springframework.boot | spring-boot-starter-integration | 3.3.12 | 企业集成模式支持，提供消息通道/路由等EIP实现。 |
-| org.springframework.integration | spring-integration-redis | - | Spring Integration对Redis的扩展，实现消息队列等功能。 |
 | org.ehcache | ehcache | - | 本地缓存框架，提供堆内/堆外多级缓存支持。 |
 | org.redisson | redisson-spring-boot-starter | 3.49.0 | Redis分布式对象服务，提供分布式锁/集合等数据结构。 |
 | **core-common** | | | |
@@ -175,12 +214,6 @@
 | cn.hutool | hutool-all | 5.8.37 | 全功能工具包，集成HTTP客户端/加密等常用工具。 |
 | com.alibaba.fastjson2 | fastjson2 | 2.0.57 | 阿里高性能JSON库2.x版本 |
 | com.alibaba | fastjson | 1.2.83 | 阿里JSON解析库1.x版本。 |
-| **core-logstash** | | | |
-| org.springframework | spring-context | - | Spring核心容器模块，提供依赖注入与事件驱动支持。 |
-| org.springframework.boot | spring-boot | 3.3.12 | Spring Boot核心模块，包含自动配置和容器启动逻辑。 |
-| jakarta.servlet | jakarta.servlet-api | - | Jakarta Servlet规范标准API，定义HTTP请求处理接口。 |
-| net.logstash.logback | logstash-logback-encoder | 6.6 | Logback日志编码器，生成JSON格式日志供Logstash收集。 |
-| ch.qos.logback.db | logback-classic-db | 1.2.11.1 | Logback扩展，支持将日志记录到数据库表中。 |
 | **core-file** | | | |
 | com.cjree | core-common | - | 内部模块，详见模块说明。 |
 | org.springframework.boot | spring-boot-starter | 3.3.12 | Spring Boot基础启动模块，提供核心自动配置支持。 |
@@ -197,12 +230,8 @@
 | org.apache.poi | poi-ooxml | 4.1.2 | POI扩展模块，支持Office Open XML格式（xlsx/docx）。 |
 | org.apache.poi | poi-scratchpad | 4.1.2 | POI扩展模块，处理旧版Office格式（如Visio/WMF）。 |
 | org.apache.poi | poi-ooxml-schemas | 4.1.2 | Office Open XML底层模式定义文件。 |
-| e-iceblue | spire.pdf | 10.10.7 | 商业PDF处理库（需授权），支持生成/转换/打印PDF。 |
-| e-iceblue | spire.doc | 12.6.2 | 商业Word处理库，支持doc/docx格式操作。 |
-| e-iceblue | spire.xls | 14.6.2 | 商业Excel处理库，支持xls/xlsx格式读写。 |
-| e-iceblue | spire.barcode | 5.1.11 | 商业条形码生成与识别库。 |
-| e-iceblue | spire.presentation | 9.6.0 | 商业PPT处理库，支持PPT/PPTX操作。 |
-| org.ofdrw | ofdrw-converter | 2.3.3 | 国产OFD版式文档转换工具。 |
+| **core-canal** |  |  |  |
+| com.alibaba.otter | canal.client | 1.1.0 | 操作canal |
 
 ## 使用说明
 ### 1.工具类
@@ -627,7 +656,7 @@ for (Object key : batch) {
 ```
 
 ### 6.编译加密
-原maven集成方式已不支持，使用一下命令对jar报进行编译，使用流水线进行编译的会自行加密可以不管  
+原maven集成方式已不支持，使用一下命令对jar报进行编译
 ```java
 java -jar classfinal-fatjar-1.3.2.jar -file {文件名称}.jar  -packages com.cjree -pwd # -Y
 ```
@@ -669,22 +698,3 @@ try {
 ### 9.操作集合框架
 
 参考链接: https://mp.weixin.qq.com/s/DtwrYyFGNnFZow7fLpawWA
-
-### 10.文件上传
-
-介绍: 单纯的文件上传下载,不需要后端参与,只需要前端处理即可
-
-https://www.yuque.com/fuwoquxuexi/gyqger/hokfvqdccyz7kbwf?singleDoc# 《前端附件改造》
-
-接口文档: http://apipost.seaskysh.com/docs/preview/f1fe1216cf4c5961/037d532d87e52590
-
-使用方式:引入依赖即可
-
-```xml
-        <dependency>
-            <groupId>com.cjree</groupId>
-            <artifactId>core-file-jdk17</artifactId>
-        </dependency>
-```
-
-数据库表:file_detail
