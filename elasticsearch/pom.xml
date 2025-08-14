@@ -1,47 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <artifactId>project</artifactId>
-        <groupId>com.wxy</groupId>
-        <version>1.0.0.0</version>
-    </parent>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <version>1.0.0.0</version>
+    <groupId>com.cjree</groupId>
     <artifactId>elasticsearch</artifactId>
-
+    <version>0.0.1-SNAPSHOT</version>
+    <description>elasticsearch代码示例</description>
     <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <core.version>0.0.1-SNAPSHOT</core.version>
+
+        <docker.directory>docker</docker.directory>
+        <docker-maven-plugin.version>0.4.10</docker-maven-plugin.version>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.cjree</groupId>
+                <artifactId>core-jdk17</artifactId>
+                <version>${core.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <dependency>
-            <groupId>com.wxy</groupId>
-            <artifactId>core-web</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.alibaba.cloud</groupId>
-                    <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>com.alibaba.cloud</groupId>
-                    <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>com.alibaba.cloud</groupId>
-                    <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-                </exclusion>
-            </exclusions>
+            <groupId>com.cjree</groupId>
+            <artifactId>core-basic-jdk17</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.wxy</groupId>
-            <artifactId>tools</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.wxy</groupId>
-            <artifactId>core-elasticsearch</artifactId>
+            <groupId>com.cjree</groupId>
+            <artifactId>core-elasticsearch-jdk17</artifactId>
         </dependency>
     </dependencies>
 
@@ -59,6 +54,7 @@
                 <directory>${basedir}/src/main/resources</directory>
                 <filtering>true</filtering>
                 <includes>
+                    <include>db/*</include>
                     <include>*.xml</include>
                     <include>*.properties</include>
                     <include>*.yml</include>
@@ -71,10 +67,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>2.7.6</version> <!-- 如果 spring.boot.version 版本修改，则这里也要跟着修改 -->
-                <configuration>
-                    <fork>true</fork>
-                </configuration>
+                <version>3.3.12</version>
             </plugin>
         </plugins>
     </build>

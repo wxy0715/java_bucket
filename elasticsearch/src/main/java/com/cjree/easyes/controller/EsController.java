@@ -2,13 +2,11 @@ package com.cjree.easyes.controller;
 
 import com.cjree.easyes.document.Document;
 import com.cjree.easyes.esmapper.DocumentMapper;
-import lombok.RequiredArgsConstructor;
+import jakarta.annotation.Resource;
 import org.dromara.easyes.core.conditions.select.LambdaEsQueryWrapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,10 +14,7 @@ import java.util.List;
 
 /**
  * es操作
- * @author wangxingyu
- * @date 2023/05/04 17:04:47
  */
-@ConditionalOnProperty(value = "easy-es.enable", havingValue = "true")
 @RestController
 public class EsController {
     @Resource

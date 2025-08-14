@@ -69,4 +69,3 @@ mybatis-plus:
 logging:
   level:
     org.springframework.data.mongodb.core: INFO
-

@@ -82,7 +82,7 @@
 		<!--jdframe-->
 		<jdframe.version>0.0.2</jdframe.version>
 		<!--es-->
-		<easy-es.version>2.0.0-beta2</easy-es.version>
+		<easy-es.version>3.0.0</easy-es.version>
 		<!--sh-->
 		<jsch.version>0.1.55</jsch.version>
 		<!--SSH协议工具-->

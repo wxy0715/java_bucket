@@ -1,0 +1,23 @@
+# spring配置
+spring:
+  data:
+    redis:
+      host: 192.168.10.101
+      port: 7000
+      password: Seasky123456
+      database: 8
+  datasource:
+    dynamic:
+      primary: core
+      datasource:
+        core:
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          type: com.zaxxer.hikari.HikariDataSource
+          username: root
+          password: Seasky123456
+          url: jdbc:mysql://192.168.10.101:3306/wxy_test?zeroDateTimeBehavior=CONVERT_TO_NULL&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai&allowMultiQueries=true&&rewriteBatchedStatements=true
+
+easy-es:
+  compatible: true # 兼容模式开关,默认为false,若您的es客户端版本小于8.x,务必设置为true才可正常使用,8.x及以上则可忽略此项配置
+  enable: true #默认为true,若为false则认为不启用本框架
+  address: 192.168.10.101:9200 # es的连接地址,必须含端口 若为集群,则可以用逗号隔开 例如:127.0.0.1:9200,127.0.0.2:9200

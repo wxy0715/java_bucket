@@ -18,7 +18,6 @@
     </properties>
 
     <dependencies>
-        <!-- 整合rabbitmq -->
         <dependency>
             <groupId>org.dromara.easy-es</groupId>
             <artifactId>easy-es-boot-starter</artifactId>
