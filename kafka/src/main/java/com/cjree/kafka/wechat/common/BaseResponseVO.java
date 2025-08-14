@@ -1,4 +1,4 @@
-package com.cjree.study.wechat.common;
+package com.cjree.kafka.wechat.common;
 
 import lombok.Data;
 

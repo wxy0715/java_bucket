@@ -1,9 +1,9 @@
-package com.cjree.study.wechat.service;
+package com.cjree.kafka.wechat.service;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.cjree.study.wechat.conf.WechatTemplateProperties;
-import com.cjree.study.wechat.utils.FileUtils;
+import com.cjree.kafka.wechat.conf.WechatTemplateProperties;
+import com.cjree.kafka.wechat.utils.FileUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;

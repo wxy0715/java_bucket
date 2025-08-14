@@ -1,4 +1,4 @@
-package com.cjree.study.stream;
+package com.cjree.kafka.stream;
 
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.KafkaStreams;

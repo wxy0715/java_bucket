@@ -1,4 +1,4 @@
-package com.cjree.study.producer;
+package com.cjree.kafka.producer;
 
 import org.apache.kafka.clients.producer.*;
 

@@ -1,8 +1,8 @@
-package com.cjree.study.wechat.service;
+package com.cjree.kafka.wechat.service;
 
 
 import com.alibaba.fastjson.JSONObject;
-import com.cjree.study.wechat.conf.WechatTemplateProperties;
+import com.cjree.kafka.wechat.conf.WechatTemplateProperties;
 
 
 public interface WechatTemplateService {

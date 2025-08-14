@@ -1,4 +1,4 @@
-package com.cjree.study.admin;
+package com.cjree.kafka.admin;
 
 import cn.hutool.log.Log;
 import org.apache.kafka.clients.admin.*;

@@ -1,4 +1,4 @@
-package com.cjree.study.wechat.conf;
+package com.cjree.kafka.wechat.conf;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
