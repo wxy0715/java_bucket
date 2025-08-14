@@ -3,9 +3,9 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>project</artifactId>
-        <groupId>com.wxy</groupId>
-        <version>1.0.0.0</version>
+        <groupId>com.cjree</groupId>
+        <artifactId>core-jdk17</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -14,13 +14,13 @@
     <packaging>pom</packaging>
     <name>${project.artifactId}</name>
     <modules>
-        <module>user1</module>
-        <module>user2</module>
+        <module>example1</module>
+        <module>example2</module>
     </modules>
 
     <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
     </properties>
 
 </project>

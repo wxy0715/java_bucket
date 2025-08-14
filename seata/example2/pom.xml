@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.cjree</groupId>
-    <artifactId>cloud</artifactId>
+    <artifactId>example2</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <description>Demo JDK17Template project for Spring Boot</description>
     <properties>
@@ -32,7 +32,7 @@
     <dependencies>
         <dependency>
             <groupId>com.cjree</groupId>
-            <artifactId>facade</artifactId>
+            <artifactId>seata-api</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
@@ -42,18 +42,6 @@
         <dependency>
             <groupId>com.cjree</groupId>
             <artifactId>core-cloud-jdk17</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.cjree</groupId>
-            <artifactId>core-rabbitmq-jdk17</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.cjree</groupId>
-            <artifactId>core-file-jdk17</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.cjree</groupId>
-            <artifactId>core-canal-jdk17</artifactId>
         </dependency>
     </dependencies>
 

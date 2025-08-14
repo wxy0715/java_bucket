@@ -1,4 +1,4 @@
-package com.cjree.jdk17Template.po;
+package com.cjree.seata.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;

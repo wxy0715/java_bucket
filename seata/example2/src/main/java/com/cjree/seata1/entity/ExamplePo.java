@@ -1,4 +1,4 @@
-package com.cjree.jdk17Template.po;
+package com.cjree.seata1.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -6,8 +6,8 @@ import com.cjree.core.basic.base.AbstractCacheableModel;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
-@Data
 @EqualsAndHashCode(callSuper = true)
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder

@@ -1,0 +1,64 @@
+server:
+  port: 8080
+  servlet:
+    register-default-servlet: true
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: example2
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      server: 192.168.10.101:18848
+      discovery:
+        password: nacos
+        username: nacos
+        server-addr: ${spring.cloud.nacos.server}
+        group: DEFAULT_GROUP
+        namespace: public
+        # 权重设置 本地调试时配置权重为0
+        #weight: 0
+      config:
+        password: nacos
+        username: nacos
+        server-addr: ${spring.cloud.nacos.server}
+        file-extension: yml
+        refresh-enabled: true
+        group: DEFAULT_GROUP
+        namespace: public
+#        使用共享配置时将application.yml中的配置复制到共享配置中，然后删除application.yml文件
+#        shared-configs:
+#          - data-id: core-common.yml
+#            group: DEFAULT_GROUP
+#            refresh: true
+#        shared-dataids: application.yml
+#        refreshable-dataids: application.yml
+    inetutils:
+      preferred-networks:
+        - 10.0.8
+seata:
+  enabled: true
+  enable-auto-data-source-proxy: true
+  data-source-proxy-mode: AT
+  tx-service-group: seata_test_group # 定义事务组的名称
+  registry:
+    type: nacos
+    nacos:
+      server-addr: ${spring.cloud.nacos.server}
+      namespace: 80a5b418-586c-485f-9180-0f41be4d9eb8
+      group: SEATA_GROUP
+      username: nacos
+      password: nacos
+  config:
+    type: nacos
+    nacos:
+      server-addr: ${spring.cloud.nacos.server}
+      namespace: 80a5b418-586c-485f-9180-0f41be4d9eb8
+      group: SEATA_GROUP
+      username: nacos
+      password: nacos
+
+
+
