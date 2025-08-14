@@ -8,7 +8,7 @@ cacheName: redis
 # spring配置
 spring:
   application:
-    name: mongo
+    name: consumer
   profiles:
     active: dev
   web:
@@ -64,8 +64,8 @@ mybatis-plus:
       logic-delete-value: "'NO'"
       logic-not-delete-value: "'YES'"
 
-
 # mongo打印sql级别
 logging:
   level:
     org.springframework.data.mongodb.core: INFO
+

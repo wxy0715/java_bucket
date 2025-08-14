@@ -1,0 +1,33 @@
+server:
+  port: 8080
+# spring配置
+spring:
+  data:
+    redis:
+      host: 192.168.10.101
+      port: 7000
+      password: Seasky123456
+      database: 8
+
+  datasource:
+    dynamic:
+      primary: core
+      datasource:
+        core:
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          type: com.zaxxer.hikari.HikariDataSource
+          username: root
+          password: Seasky123456
+          url: jdbc:mysql://192.168.10.101:3306/wxy_test?zeroDateTimeBehavior=CONVERT_TO_NULL&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai&allowMultiQueries=true&&rewriteBatchedStatements=true
+  rabbitmq:
+    host: demo.seaskysh.com
+    port: 5672
+    username: admin
+    password: seasky$2020
+    #虚拟host 可以不设置,使用server默认host
+    virtual-host: rabbit
+    #确认消息已发送到交换机(Exchange)
+    #publisher-confirms: true
+    publisher-confirm-type: correlated
+    #确认消息已发送到队列(Queue)
+    publisher-returns: true

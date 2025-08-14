@@ -1,4 +1,4 @@
-package com.cjree.rabbitmq.client;
+package com.cjree;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -6,8 +6,8 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 @SpringBootApplication
 @EnableAspectJAutoProxy(exposeProxy = true)
-public class RabbitmqProducer {
+public class RabbitmqConsumer {
     public static void main(String[] args) {
-        SpringApplication.run(RabbitmqProducer.class, args);
+        SpringApplication.run(RabbitmqConsumer.class, args);
     }
 }

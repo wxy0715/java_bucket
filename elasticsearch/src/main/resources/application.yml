@@ -8,7 +8,7 @@ cacheName: redis
 # spring配置
 spring:
   application:
-    name: canal
+    name: elasticsearch
   profiles:
     active: dev
   web:

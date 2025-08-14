@@ -1,11 +1,7 @@
 package com.cjree.rabbitmq.client.controller;
 
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.FanoutExchange;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import com.cjree.core.rabbitmq.utils.RabbitMqUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,7 +15,7 @@ import java.util.UUID;
 public class SendMessageController {
 
     @Autowired
-    RabbitTemplate rabbitTemplate;
+    RabbitMqUtils rabbitMqUtils;
 
     @GetMapping("/sendDirectMessage")
     public String sendDirectMessage() {
@@ -31,7 +27,7 @@ public class SendMessageController {
         map.put("messageData",messageData);
         map.put("createTime",createTime);
         //将消息携带绑定键值：TestDirectRouting 发送到交换机TestDirectExchange
-        rabbitTemplate.convertAndSend("TestDirectExchange", "TestDirectRouting", map);
+        rabbitMqUtils.send("TestDirectExchange", "TestDirectRouting", map);
         return "ok";
     }
 
@@ -44,7 +40,7 @@ public class SendMessageController {
         manMap.put("messageId", messageId);
         manMap.put("messageData", messageData);
         manMap.put("createTime", createTime);
-        rabbitTemplate.convertAndSend("topicExchange", "topic.man", manMap);
+        rabbitMqUtils.send("topicExchange", "topic.man", manMap);
         return "ok";
     }
 
@@ -57,7 +53,7 @@ public class SendMessageController {
         womanMap.put("messageId", messageId);
         womanMap.put("messageData", messageData);
         womanMap.put("createTime", createTime);
-        rabbitTemplate.convertAndSend("topicExchange", "topic.woman", womanMap);
+        rabbitMqUtils.send("topicExchange", "topic.woman", womanMap);
         return "ok";
     }
 
@@ -70,7 +66,7 @@ public class SendMessageController {
         map.put("messageId", messageId);
         map.put("messageData", messageData);
         map.put("createTime", createTime);
-        rabbitTemplate.convertAndSend("fanoutExchange", null, map);
+        rabbitMqUtils.send("fanoutExchange", null, map);
         return "ok";
     }
 
@@ -87,7 +83,7 @@ public class SendMessageController {
         map.put("messageId", messageId);
         map.put("messageData", messageData);
         map.put("createTime", createTime);
-        rabbitTemplate.convertAndSend("non-existent-exchange", "TestDirectRouting", map);
+        rabbitMqUtils.send("non-existent-exchange", "TestDirectRouting", map);
         return "ok";
     }
 
@@ -103,7 +99,7 @@ public class SendMessageController {
         map.put("messageId", messageId);
         map.put("messageData", messageData);
         map.put("createTime", createTime);
-        rabbitTemplate.convertAndSend("lonelyDirectExchange", "TestDirectRouting", map);
+        rabbitMqUtils.send("lonelyDirectExchange", "TestDirectRouting", map);
         return "ok";
     }
 }
