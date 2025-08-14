@@ -127,7 +127,7 @@ public class FtpUtils {
 	}
 
 	public static void main(String[] args) throws IOException {
-		FTPClient ftpClient = getFTPClient("101.43.60.8", "ftpuser", "wxy0715..", 21);
+		FTPClient ftpClient = getFTPClient("127.0.0.1", "ftpuser", "wxy0715..", 21);
 		ftpClient.changeWorkingDirectory("/opt");
 		ftpClient.enterLocalPassiveMode();
 		//由于apache不支持中文语言环境，通过定制类解析中文日期类型

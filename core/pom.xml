@@ -92,6 +92,8 @@
 		<syslog4j.version>0.9.60</syslog4j.version>
 		<!-- 系统信息-->
 		<oshi-core.version>4.2.0</oshi-core.version>
+		<!--commons-net-->
+		<commons-net.version>3.6</commons-net.version>
 	</properties>
 
 	<!-- 依赖声明 -->
@@ -292,6 +294,12 @@
 				<groupId>com.github.oshi</groupId>
 				<artifactId>oshi-core</artifactId>
 				<version>${oshi-core.version}</version>
+			</dependency>
+			<!-- commons-net-->
+			<dependency>
+				<groupId>commons-net</groupId>
+				<artifactId>commons-net</artifactId>
+				<version>${commons-net.version}</version>
 			</dependency>
 
 			<!--jdk17兼容-->
