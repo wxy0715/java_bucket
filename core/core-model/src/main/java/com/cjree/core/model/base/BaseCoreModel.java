@@ -85,7 +85,7 @@ public abstract class BaseCoreModel implements Serializable {
     private String asc;
 
     @Transient
-    @Schema(description = "排序参数：逆序排序字段", example = "creator,updator")
+    @Schema(description = "排序参数：逆序排序字段", example = "creator,updater")
     @TableField(exist = false)
     private String desc;
 

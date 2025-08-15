@@ -34,3 +34,4 @@ build/
 ### VS Code ###
 .vscode/
 /pom-test.xml
+/minio_fileupload_web/package-lock.json
