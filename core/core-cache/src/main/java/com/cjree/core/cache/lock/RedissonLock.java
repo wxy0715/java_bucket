@@ -1,11 +1,9 @@
 package com.cjree.core.cache.lock;
 
 import com.cjree.core.cache.base.Lock;
-import com.cjree.core.cache.config.RedissonConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 

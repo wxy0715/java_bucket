@@ -8,6 +8,7 @@ import org.redisson.spring.data.connection.RedissonConnectionFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,11 +28,13 @@ public class RedissonConfig {
     @Value("${spring.data.redis.database}")
     private Integer database;
     @Bean
+    @ConditionalOnMissingBean
     public RedissonConnectionFactory redissonConnectionFactory(RedissonClient redisson) {
         return new RedissonConnectionFactory(redisson);
     }
 
     @Bean(destroyMethod = "shutdown")
+    @ConditionalOnMissingBean
     public RedissonClient redisson(@Value("classpath:/redisson-single.yml") Resource configFile) throws IOException {
         Config config = Config.fromYAML(configFile.getInputStream());
         config.setCodec(JsonJacksonCodec.INSTANCE);
