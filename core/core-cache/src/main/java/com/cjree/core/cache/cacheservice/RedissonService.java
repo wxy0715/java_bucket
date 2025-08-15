@@ -8,6 +8,7 @@ import org.redisson.api.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
 
@@ -20,7 +21,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Configuration
-@ConditionalOnClass(value = RedissonConfig.class)
+@ConditionalOnProperty(value = "cacheName" , havingValue = "redis")
 public class RedissonService implements CacheCommand {
     private final Logger log = LoggerFactory.getLogger(RedissonService.class);
     @Resource

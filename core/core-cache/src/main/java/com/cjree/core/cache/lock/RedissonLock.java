@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
 import java.util.concurrent.ConcurrentHashMap;
@@ -18,7 +19,7 @@ import java.util.concurrent.locks.LockSupport;
  */
 @Slf4j
 @Component
-@ConditionalOnClass(value = RedissonConfig.class)
+@ConditionalOnProperty(value = "cacheName" , havingValue = "redis")
 public class RedissonLock implements Lock {
     private final RedissonClient redissonClient;
     private final ConcurrentMap<String, Thread> lockingThreads = new ConcurrentHashMap<>();
