@@ -1,11 +1,14 @@
 package com.cjree.core.cache.cacheservice;
 
 import com.cjree.core.cache.base.CacheCommand;
+import com.cjree.core.cache.config.RedissonConfig;
 import com.cjree.core.common.log.TLogContext;
 import jakarta.annotation.Resource;
 import org.redisson.api.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
 
 import java.io.Serializable;
@@ -17,6 +20,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Configuration
+@ConditionalOnClass(value = RedissonConfig.class)
 public class RedissonService implements CacheCommand {
     private final Logger log = LoggerFactory.getLogger(RedissonService.class);
     @Resource

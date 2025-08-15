@@ -55,10 +55,9 @@ public abstract class AbstractService<T extends BaseModel, M extends BaseMapper<
     @Autowired
     protected M mapper;
     @Autowired
-    protected RedissonClient redissonClient;
-    @Autowired
     protected TransactionalInvoker transactionalInvoker;
 
+    @Override
     public M getBaseMapper() {
         return this.mapper;
     }
@@ -332,6 +331,7 @@ public abstract class AbstractService<T extends BaseModel, M extends BaseMapper<
         cacheName = cacheName == null ? "" : cacheName;
         if (cacheName.equals(REDIS)) {
             // 保证redis缓存失效后,只有一个线程能读取数据库,减轻数据库压力
+            RedissonClient redissonClient = SpringContainer.getBeanOfType(RedissonClient.class);
             Lock lock = redissonClient.getLock("dbToRedis_" + id);
             try {
                 boolean tryLock = lock.tryLock(2, TimeUnit.SECONDS);
