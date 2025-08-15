@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eh:config
+        xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+        xmlns:eh='http://www.ehcache.org/v3'
+        xsi:schemaLocation="http://www.ehcache.org/v3 http://www.ehcache.org/schema/ehcache-core-3.3.xsd">
+
+    <!--缓存模板-->
+    <eh:cache-template name="default">
+        <eh:key-type>
+            java.lang.String
+        </eh:key-type>
+        <eh:value-type serializer="org.ehcache.impl.serialization.CompactJavaSerializer">
+            java.io.Serializable
+        </eh:value-type>
+        <eh:expiry>
+            <eh:ttl unit="minutes">600</eh:ttl>
+        </eh:expiry>
+        <eh:resources>
+            <!-- 使用heap-store替代heap，配置堆内内存可以放2000个条目 -->
+            <eh:heap unit="entries">2000</eh:heap>
+            <eh:offheap unit="MB">10</eh:offheap>
+        </eh:resources>
+    </eh:cache-template>
+
+    <!-- 业务数据缓存  -->
+    <eh:cache alias="service" uses-template="default">
+    </eh:cache>
+</eh:config>

@@ -1,6 +1,7 @@
 package com.cjree.core.cache.cacheservice;
 
 import com.cjree.core.cache.base.CacheCommand;
+import com.cjree.core.cache.config.EhCacheConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.ehcache.Cache;
 import org.ehcache.CacheManager;
@@ -20,19 +21,12 @@ import java.util.stream.Collectors;
 @Slf4j
 public class EhCacheService implements CacheCommand {
     private final CacheManager cacheManager;
-    private String cacheAlias = "service";
     private final Cache<String, Serializable> ehCache;
     private final Map<String, Cache<String, Map<String, String>>> hashCaches = new ConcurrentHashMap<>();
 
     public EhCacheService(CacheManager cacheManager) {
         this.cacheManager = cacheManager;
-        this.ehCache = cacheManager.getCache(cacheAlias, String.class, Serializable.class);
-    }
-
-    public EhCacheService(CacheManager cacheManager, String cacheAlias) {
-        this.cacheManager = cacheManager;
-        this.cacheAlias = cacheAlias;
-        this.ehCache = cacheManager.getCache(cacheAlias, String.class, Serializable.class);
+        this.ehCache = cacheManager.getCache("service", String.class, Serializable.class);
     }
 
     @Override
