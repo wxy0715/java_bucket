@@ -1,10 +1,5 @@
 # Core JDK17
 
-## 更新纪要
-| 更新时间 | 更新内容 | 备注              |
-| --- | --- |-----------------|
-| 2025-08-14 | jdk1.8升级为jdk17 | 详见[使用说明](#使用说明) |
-
 ## 版本说明
 ### 1.概述
 `core-jdk17` 是一个基于 Java 17 的核心开发库，为生产级项目提供标准化、可复用的基础组件。
@@ -20,8 +15,6 @@
 + **高效开发**：复用核心组件，减少重复代码。
 + **可扩展**：按需引入模块（如引入 `core-cloud` 支持微服务，`core-file` 支持文件管理）。
 + **生产环境支持**：集成日志追踪、缓存、分布式事务等特性。
-
-
 
 ### 2.架构示意图
 
@@ -114,22 +107,6 @@
 + **定位**：外围模块
 + **主要依赖**： 
   - `canal.client`：操作canal类
-
-### 4.集成中间件示例
-
-| 介绍                | 模块            |
-| ------------------- | --------------- |
-| binlog监听处理      | `canal`         |
-| windows+linux改密   | `changePwd`     |
-| ElasticSearch       | `elasticsearch` |
-| ftp服务及客户端代理 | `ftpProxy`      |
-| kafka               | `kafka`         |
-| mongo封装           | `mongo`         |
-| 通信框架            | `netty`         |
-| 消息中间件          | `rabbitmq`      |
-| 分布式事务          | `seata`         |
-| 分库分表(todo)      | `shardingjdbc`  |
-| 定时服务(todo)      | `xxl-job`       |
 
 ### 5.组件版本清单
 
@@ -233,12 +210,29 @@
 | **core-canal** |  |  |  |
 | com.alibaba.otter | canal.client | 1.1.0 | 操作canal |
 
+## 集成中间件示例
+
+| 介绍                | 模块            | 文档地址 |
+| ------------------- | --------------- | -------- |
+| binlog监听处理      | `canal`         |          |
+| windows+linux改密   | `changePwd`     |          |
+| ElasticSearch       | `elasticsearch` |          |
+| ftp服务及客户端代理 | `ftpProxy`      |          |
+| kafka               | `kafka`         |          |
+| mongo封装           | `mongo`         |          |
+| 通信框架            | `netty`         |          |
+| 消息中间件          | `rabbitmq`      |          |
+| 分布式事务          | `seata`         |          |
+| 分库分表(todo)      | `shardingjdbc`  |          |
+| 定时服务(todo)      | `xxl-job`       |          |
+
 ## 使用说明
+
 ### 1.工具类
-原core工具类已精简，基本所有工具都在hutool中集成，可用工具类可在以下文档中寻找  
+core工具类已精简，基本所有工具都在hutool中集成，可用工具类可在以下文档中寻找  
 文档地址：https://doc.hutool.cn/pages/index/  
 
-### 2.线程/线程池/Async使用方式
+### 2.线程/线程池/Async-集成链路追踪的示例
 
 ```java
     // 1.注解形式,需要带上customAsyncExecutor
@@ -300,7 +294,7 @@
     }
 ```
 
-### 3.Http请求示例(hutool)
+### 3.hutool-Http请求集成链接追踪示例
 
 ```java
 // get请求
@@ -310,391 +304,16 @@ HttpRequest request = HttpRequest.get("https://www.baidu.com")
 log.info("hutool请求日志:{}",request.toString());
 String body = request.execute().body();
 log.info("hutool请求结果:{}",body);
-
-// post请求 todo
-
 ```
 
 具体参考:https://doc.hutool.cn/pages/HttpUtil
 
-### 4.RabbitMq使用示例
-
-#### 引入依赖
-
-```xml
-        <dependency>
-            <groupId>com.cjree</groupId>
-            <artifactId>core-mq-jdk17</artifactId>
-        </dependency>
-```
-
-#### 直连交换机
-
-配置交换机和队列
-
-```java
-
-@Configuration
-public class DirectRabbitMqConfig {
-
-    //队列 起名：TestDirectQueue
-    @Bean
-    public Queue TestDirectQueue() {
-        // durable:是否持久化,默认是false,持久化队列：会被存储在磁盘上，当消息代理重启时仍然存在，暂存队列：当前连接有效
-        // exclusive:默认也是false，只能被当前创建的连接使用，而且当连接关闭后队列即被删除。此参考优先级高于durable
-        // autoDelete:是否自动删除，当没有生产者或者消费者使用此队列，该队列会自动删除。
-        //   return new Queue("TestDirectQueue",true,true,false);
-        //一般设置一下队列的持久化就好,其余两个就是默认false
-        return new Queue("TestDirectQueue",true);
-    }
-
-
-    //Direct交换机 起名：TestDirectExchange
-    @Bean
-    DirectExchange TestDirectExchange() {
-        //  return new DirectExchange("TestDirectExchange",true,true);
-        return new DirectExchange("TestDirectExchange",true,false);
-    }
-
-    @Bean
-    DirectExchange lonelyDirectExchange() {
-        return new DirectExchange("lonelyDirectExchange");
-    }
-
-    //绑定  将队列和交换机绑定, 并设置用于匹配键：TestDirectRouting
-    @Bean
-    Binding bindingDirect() {
-        return BindingBuilder.bind(TestDirectQueue()).to(TestDirectExchange()).with("TestDirectRouting");
-    }
-}
-```
-
-生产者
-
-```java
-    @Resource
-    private RabbitMqUtils rabbitMqUtils;
-
-    @GetMapping("/sendDirectMessage")
-    public String sendDirectMessage() {
-        String messageId = String.valueOf(UUID.randomUUID());
-        String messageData = "test message, hello!";
-        String createTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        Map<String,Object> map = new HashMap<>();
-        map.put("messageId",messageId);
-        map.put("messageData",messageData);
-        map.put("createTime",createTime);
-        //将消息携带绑定键值：TestDirectRouting 发送到交换机TestDirectExchange
-        rabbitMqUtils.send("TestDirectExchange", "TestDirectRouting", map);
-        return "ok";
-    }
-```
-
-消费者
-
-```java
-@Component
-@RabbitListener(queues = "TestDirectQueue")
-@Slf4j
-public class DirectReceiver {
-
-    @RabbitHandler
-    public void process(TLogMqWrapBean tLogMqWrapBean) {
-        TLogMqConsumerProcessor.process(tLogMqWrapBean, (TLogMqRunner<Map>) o -> {
-            //业务操作
-            log.info("DirectReceiver消费者收到消息  : " + o.toString());
-        });
-    }
-}
-```
-
-#### 主题交换机
-
-配置交换机和队列
-
-```java
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.core.TopicExchange;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
-@Configuration
-public class TopicRabbitConfig {
-    //绑定键
-    public final static String man = "topic.man";
-    public final static String woman = "topic.woman";
-
-    @Bean
-    public Queue firstQueue() {
-        return new Queue(TopicRabbitConfig.man);
-    }
-
-    @Bean
-    public Queue secondQueue() {
-        return new Queue(TopicRabbitConfig.woman);
-    }
-
-    @Bean
-    TopicExchange exchange() {
-        return new TopicExchange("topicExchange");
-    }
-
-
-    //将firstQueue和topicExchange绑定,而且绑定的键值为topic.man
-    //这样只要是消息携带的路由键是topic.man,才会分发到该队列
-    @Bean
-    Binding bindingExchangeMessage() {
-        return BindingBuilder.bind(firstQueue()).to(exchange()).with(man);
-    }
-
-    //将secondQueue和topicExchange绑定,而且绑定的键值为用上通配路由键规则topic.#
-    // 这样只要是消息携带的路由键是以topic.开头,都会分发到该队列
-    @Bean
-    Binding bindingExchangeMessage2() {
-        return BindingBuilder.bind(secondQueue()).to(exchange()).with("topic.#");
-    }
-}
-```
-
-生产者
-
-```java
-    @Resource
-    private RabbitMqUtils rabbitMqUtils;
-
-    @GetMapping("/sendTopicMessage1")
-    public String sendTopicMessage1() {
-        String messageId = String.valueOf(UUID.randomUUID());
-        String messageData = "message: M A N ";
-        String createTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        Map<String, Object> manMap = new HashMap<>();
-        manMap.put("messageId", messageId);
-        manMap.put("messageData", messageData);
-        manMap.put("createTime", createTime);
-        rabbitMqUtils.send("topicExchange", "topic.man", manMap);
-        return "ok";
-    }
-
-    @GetMapping("/sendTopicMessage2")
-    public String sendTopicMessage2() {
-        String messageId = String.valueOf(UUID.randomUUID());
-        String messageData = "message: woman is all ";
-        String createTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        Map<String, Object> womanMap = new HashMap<>();
-        womanMap.put("messageId", messageId);
-        womanMap.put("messageData", messageData);
-        womanMap.put("createTime", createTime);
-        rabbitMqUtils.send("topicExchange", "topic.woman", womanMap);
-        return "ok";
-    }
-
-```
-
-消费者
-
-```java
-@Component
-@RabbitListener(queues = "topic.man")
-@Slf4j
-public class TopicManReceiver {
-    @RabbitHandler
-    public void process(TLogMqWrapBean tLogMqWrapBean) {
-        TLogMqConsumerProcessor.process(tLogMqWrapBean, (TLogMqRunner<Map>) o -> {
-            //业务操作
-            log.info("TopicManReceiver消费者收到消息  : " + o.toString());
-        });
-    }
-}
-
-@Component
-@RabbitListener(queues = "topic.woman")
-@Slf4j
-public class TopicTotalReceiver {
-    @RabbitHandler
-    public void process(TLogMqWrapBean tLogMqWrapBean) {
-        TLogMqConsumerProcessor.process(tLogMqWrapBean, (TLogMqRunner<Map>) o -> {
-            //业务操作
-            log.info("TopicTotalReceiver消费者收到消息  : " + o.toString());
-        });
-    }
-}
-```
-
-#### 扇形交换机
-
-配置交换机和队列
-
-```java
-@Configuration
-public class FanoutRabbitConfig {
-    /**
-     *  创建三个队列 ：fanout.A   fanout.B  fanout.C
-     *  将三个队列都绑定在交换机 fanoutExchange 上
-     *  因为是扇型交换机, 路由键无需配置,配置也不起作用
-     */
-    @Bean
-    public Queue queueA() {
-        return new Queue("fanout.A");
-    }
-
-    @Bean
-    public Queue queueB() {
-        return new Queue("fanout.B");
-    }
-
-    @Bean
-    public Queue queueC() {
-        return new Queue("fanout.C");
-    }
-
-    @Bean
-    FanoutExchange fanoutExchange() {
-        return new FanoutExchange("fanoutExchange");
-    }
-
-    @Bean
-    Binding bindingExchangeA() {
-        return BindingBuilder.bind(queueA()).to(fanoutExchange());
-    }
-
-    @Bean
-    Binding bindingExchangeB() {
-        return BindingBuilder.bind(queueB()).to(fanoutExchange());
-    }
-
-    @Bean
-    Binding bindingExchangeC() {
-        return BindingBuilder.bind(queueC()).to(fanoutExchange());
-    }
-}
-```
-
-生产者
-
-```java
-    @Resource
-    private RabbitMqUtils rabbitMqUtils;
-
-    @GetMapping("/sendFanoutMessage")
-    public String sendFanoutMessage() {
-        String messageId = String.valueOf(UUID.randomUUID());
-        String messageData = "message: testFanoutMessage ";
-        String createTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        Map<String, Object> map = new HashMap<>();
-        map.put("messageId", messageId);
-        map.put("messageData", messageData);
-        map.put("createTime", createTime);
-        rabbitMqUtils.send("fanoutExchange", null, map);
-        return "ok";
-    }
-```
-
-消费者
-
-```java
-@Component
-@RabbitListener(queues = "fanout.A")
-@Slf4j
-public class FanoutReceiverA {
-    @RabbitHandler
-    public void process(TLogMqWrapBean tLogMqWrapBean) {
-        TLogMqConsumerProcessor.process(tLogMqWrapBean, (TLogMqRunner<Map>) o -> {
-            //业务操作
-            log.info("FanoutReceiverA消费者收到消息  : " + o.toString());
-        });
-    }
-}
-
-@Component
-@RabbitListener(queues = "fanout.B")
-@Slf4j
-public class FanoutReceiverB {
-    @RabbitHandler
-    public void process(TLogMqWrapBean tLogMqWrapBean) {
-        TLogMqConsumerProcessor.process(tLogMqWrapBean, (TLogMqRunner<Map>) o -> {
-            //业务操作
-            log.info("FanoutReceiverB消费者收到消息  : " + o.toString());
-        });
-    }
-}
-
-@Component
-@RabbitListener(queues = "fanout.C")
-@Slf4j
-public class FanoutReceiverC {
-    @RabbitHandler
-    public void process(TLogMqWrapBean tLogMqWrapBean) {
-        TLogMqConsumerProcessor.process(tLogMqWrapBean, (TLogMqRunner<Map>) o -> {
-            //业务操作
-            log.info("FanoutReceiverC消费者收到消息  : " + o.toString());
-        });
-    }
-}
-```
-
-### 5.缓存使用方式
-
-具体更多方法参考:base.com.cjree.core.cache.CacheCommand
-
-```java
-// 普通key-value
-CacheUtil.getCacheCommand().set("key1", "value1");
-Object o = CacheUtil.getCacheCommand().get("key1");
-System.out.println(o);
-
-// 批量key-value
-Map<String, Serializable> keys = new HashMap<>();
-keys.put("keys1", "value1_斯1额");
-keys.put("keys2", "value2_斯1额");
-CacheUtil.getCacheCommand().setBatch(keys);
-List<Object> batch = CacheUtil.getCacheCommand().getBatch(Arrays.asList("keys1", "keys2"));
-for (Object key : batch) {
-  System.out.println(key);
-}
-```
-
-### 6.编译加密
+### 4.编译加密
 原maven集成方式已不支持，使用一下命令对jar报进行编译
 ```java
 java -jar classfinal-fatjar-1.3.2.jar -file {文件名称}.jar  -packages com.cjree -pwd # -Y
 ```
 
-### 7.老版本feign facade二方包引入
-例如引入basedata2 需要排除老版本的swagger依赖
-如果原facade的依赖较少，例如basedata2，直接引入没有问题，facade依赖项过多产生冲突可能仍需处理
-```java
-        <dependency>
-            <groupId>com.cjree</groupId>
-            <artifactId>base-data-api</artifactId>
-            <version>2.0.2-SNAPSHOT</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>knife4j-spring-boot-starter</artifactId>
-                    <groupId>com.github.xiaoymin</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-```
-### 8.分布式锁
-
-```java
-RLock lock = redissonClient.getLock(key);
-try {
-  lock.lock();
-  // 业务
-} catch (DataVerifyException dataVerifyException) {
-  log.error("项目冻结失败",dataVerifyException);
-  ExceptionUtil.error("项目冻结失败"+dataVerifyException.getMessage());
-} catch (Exception e){
-  log.error("项目冻结失败", e);
-  ExceptionUtil.error("项目冻结失败,请重试");
-}finally {
-  lock.unlock();
-}
-```
-
-### 9.操作集合框架
+### 5.操作集合框架
 
 参考链接: https://mp.weixin.qq.com/s/DtwrYyFGNnFZow7fLpawWA
