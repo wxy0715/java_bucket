@@ -18,7 +18,7 @@
 
 ### 2.架构示意图
 
-
+![image-20250819085414834](https://wxy-md.oss-cn-shanghai.aliyuncs.com/image-20250819085414834.png)
 
 ### 3.基础模块说明
 **模块定位**
@@ -212,19 +212,19 @@
 
 ## 集成中间件示例
 
-| 介绍                | 模块            | 文档地址 |
-| ------------------- | --------------- | -------- |
-| binlog监听处理      | `canal`         |          |
-| windows+linux改密   | `changePwd`     |          |
-| ElasticSearch       | `elasticsearch` |          |
-| ftp服务及客户端代理 | `ftpProxy`      |          |
-| kafka               | `kafka`         |          |
-| mongo封装           | `mongo`         |          |
-| 通信框架            | `netty`         |          |
-| 消息中间件          | `rabbitmq`      |          |
-| 分布式事务          | `seata`         |          |
-| 分库分表(todo)      | `shardingjdbc`  |          |
-| 定时服务(todo)      | `xxl-job`       |          |
+| 介绍                | 模块            | 文档地址                                                     |
+| ------------------- | --------------- | ------------------------------------------------------------ |
+| 缓存                | `core-cache`    | https://github.com/wxy0715/java_bucket/tree/main/core/core-cache |
+| binlog监听处理      | `canal`         | https://github.com/wxy0715/java_bucket/tree/main/canal       |
+| ElasticSearch       | `elasticsearch` | https://github.com/wxy0715/java_bucket/tree/main/elasticsearch |
+| ftp服务及客户端代理 | `ftpProxy`      | https://github.com/wxy0715/java_bucket/tree/main/ftpProxy    |
+| kafka               | `kafka`         | https://github.com/wxy0715/java_bucket/tree/main/kafka       |
+| mongo封装           | `mongo`         | https://github.com/wxy0715/java_bucket/tree/main/mongo       |
+| 通信框架            | `netty`         | https://github.com/wxy0715/java_bucket/tree/main/netty       |
+| 消息中间件          | `rabbitmq`      | https://github.com/wxy0715/java_bucket/tree/main/rabbitmq    |
+| 分布式事务          | `seata`         | https://github.com/wxy0715/java_bucket/tree/main/seata       |
+| 分库分表(todo)      | `shardingjdbc`  | https://github.com/wxy0715/java_bucket/tree/main/shardingjdbc |
+| 定时服务(todo)      | `xxl-job`       |                                                              |
 
 ## 使用说明
 
