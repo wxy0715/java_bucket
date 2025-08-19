@@ -26,7 +26,6 @@ public class GlobalExceptionResolver {
         log.error(e.getMessage(), e);
         Result<Object> result = new Result<Object>();
         result.setTraceId(TLogContext.getTraceId());
-        result.setSpanId(TLogContext.getSpanId());
         if (e instanceof BaseException) {
             ((BaseException) e).handler(result);
         }else if (e instanceof ValidationException) {

@@ -52,7 +52,6 @@ public class Response {
         result.setDescription(description);
         result.setCurrentTime(System.currentTimeMillis());
         result.setTraceId(TLogContext.getTraceId());
-        result.setSpanId(TLogContext.getSpanId());
         return result;
     }
 
@@ -73,7 +72,6 @@ public class Response {
         result.setDescription(description);
         result.setCurrentTime(System.currentTimeMillis());
         result.setTraceId(TLogContext.getTraceId());
-        result.setSpanId(TLogContext.getSpanId());
         return result;
     }
 
